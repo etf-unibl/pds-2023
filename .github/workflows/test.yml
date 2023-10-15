@@ -31,10 +31,6 @@ jobs:
         with:
           # Select GHDL backend (mcode, llvm or gcc)
           backend: mcode
-      
-      # Setup Python environment
-      - name: Setup Python
-        uses: actions/setup-python@v4.3.0
   
       - name: Run the test script
         run: |
