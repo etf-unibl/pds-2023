@@ -37,4 +37,6 @@ jobs:
         uses: actions/setup-python@v4.3.0
   
       - name: Run the test script
-        run: ./run-test.sh
+        run: |
+          chmod +x ./run-test.sh
+          ./run-test.sh
