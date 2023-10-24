@@ -1,14 +1,14 @@
 -----------------------------------------------------------------------------
 -- Faculty of Electrical Engineering
--- PDS 2022
--- https://github.com/knezicm/pds-2023/
+-- PDS 2023
+-- https://github.com/etf-unibl/pds-2023
 -----------------------------------------------------------------------------
 --
--- unit name:     TEST 
+-- unit name:     TEST
 --
 -- description:
 --
---   This file implements a simple test assigment.
+--   This file has the testing purpose for creating the first github pull request.
 --
 -----------------------------------------------------------------------------
 -- Copyright (c) 2023 Faculty of Electrical Engineering
@@ -35,11 +35,12 @@
 -- ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 -- OTHER DEALINGS IN THE SOFTWARE
 -----------------------------------------------------------------------------
-library ieee; 
-use ieee.std_logic_1164.all; 
 
-entitety test is 
-end test; 
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity test is
+end test;
 
 architecture arch of test is
 begin
