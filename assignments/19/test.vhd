@@ -41,5 +41,6 @@ use ieee.std_logic_1164.all;
 entitety test is 
 end test; 
 
-architecture empty_arh of test is
-end empty_arh;
+architecture arch of test is
+begin
+end arch;
