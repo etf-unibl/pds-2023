@@ -1,3 +1,6 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
 entity nand2 is
    port ( A_i, B_i: in std_logic;
           Y_o: out std_logic
