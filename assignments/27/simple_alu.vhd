@@ -17,7 +17,7 @@ signal tmp : std_logic_vector(4 downto 0);
 begin
 	process(i_A, i_B, i_SEL)
 begin
-		case i_sel is 
+		case i_SEL is 
 		when "00" => 
 			r <= std_logic_vector(unsigned(i_A)+unsigned(i_B));
 		when "01" => 
