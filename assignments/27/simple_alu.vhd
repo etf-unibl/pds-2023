@@ -24,10 +24,9 @@ begin
 			r <= std_logic_vector(unsigned(i_A)-unsigned(i_B));
 		when "10" => 
 			r <= "00" & i_A(3 downto 2);
-		when "11" => 
-			r <= (others=>'0'); 
 		when others =>
-			NULL; 
+			r <= (others=>'0'); 
+		
 		end case; 
 		
 		o_RES <= r; 
