@@ -8,7 +8,7 @@ Jedan od propisanih elemenata, koji se obavezno mora zadovoljiti, je zaglavlje f
 -----------------------------------------------------------------------------
 -- Faculty of Electrical Engineering
 -- PDS 2023
--- https://github.com/knezicm/pds-2023/
+-- https://github.com/etf-unibl/pds-2023/
 -----------------------------------------------------------------------------
 --
 -- unit name:     NAND2
