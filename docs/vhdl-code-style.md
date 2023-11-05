@@ -7,8 +7,8 @@ Jedan od propisanih elemenata, koji se obavezno mora zadovoljiti, je zaglavlje f
 ```
 -----------------------------------------------------------------------------
 -- Faculty of Electrical Engineering
--- PDS 2022
--- https://github.com/knezicm/pds-2022/
+-- PDS 2023
+-- https://github.com/knezicm/pds-2023/
 -----------------------------------------------------------------------------
 --
 -- unit name:     NAND2
@@ -18,11 +18,11 @@ Jedan od propisanih elemenata, koji se obavezno mora zadovoljiti, je zaglavlje f
 --   This file implements a simple NAND2 logic.
 --
 -----------------------------------------------------------------------------
--- Copyright (c) 2022 Faculty of Electrical Engineering
+-- Copyright (c) 2023 Faculty of Electrical Engineering
 -----------------------------------------------------------------------------
 -- The MIT License
 -----------------------------------------------------------------------------
--- Copyright 2022 Faculty of Electrical Engineering
+-- Copyright 2023 Faculty of Electrical Engineering
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a
 -- copy of this software and associated documentation files (the "Software"),
