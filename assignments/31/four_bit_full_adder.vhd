@@ -50,18 +50,18 @@ entity four_bit_full_adder is
 end four_bit_full_adder;
 
 architecture four_bit_full_adder_arch of four_bit_full_adder is
-signal sum : std_logic_vector(4 downto 0) := "00000";
-signal in_A, in_B, in_C : std_logic_vector(4 downto 0);
+
+component one_bit_full_adder is
+port(
+	a, b, c_in : in std_logic;
+	s, c_out : out std_logic
+);
+end component;
+signal c: std_logic_vector(3 downto 0);
 begin
-	in_A(3 downto 0) <= i_A;
-	in_A(4) <= '0';
-	in_B(3 downto 0) <= i_B;
-	in_B(4) <= '0';
-	in_C(0) <= i_C;
-	in_C(4 downto 1) <= "0000";
-	sum <= std_logic_vector(unsigned(in_A) + unsigned(in_B) + unsigned(in_C)); 
-	with sum(4) select
-	o_C <= '0' when '0',
-			 '1' when others;
-	o_SUM <= sum(3 downto 0);
+u1 : one_bit_full_adder port map(a => i_A(0), b => i_B(0), c_in => i_C, s => o_SUM(0), c_out => c(0));
+u2 : one_bit_full_adder port map(a => i_A(1), b => i_B(1), c_in => c(0), s => o_SUM(1), c_out => c(1));
+u3 : one_bit_full_adder port map(a => i_A(2), b => i_B(2), c_in => c(1), s => o_SUM(2), c_out => c(2));
+u4 : one_bit_full_adder port map(a => i_A(3), b => i_B(3), c_in => c(2), s => o_SUM(3), c_out => o_C);
+
 end four_bit_full_adder_arch;
