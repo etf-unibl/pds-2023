@@ -28,7 +28,7 @@ begin
 		carry <= '1' when (i_SEL="00") and (unsigned(i_A) + unsigned(i_B) > 15) else
 					'1' when (i_SEL="01") and (unsigned(i_A) < unsigned(i_B)) else 
 					'0';
-		
+		o_C <= carry; 
 		
 		
 end beh_arch;
