@@ -11,22 +11,25 @@ entity simple_alu is
 end simple_alu;
 
 architecture beh_arch of simple_alu is
-signal sum, diff, sarA, sarB : std_logic_vector(3 downto 0); 
-signal tmp : std_logic_vector(4 downto 0); 
+signal sum, diff, sarA, shlB : std_logic_vector(3 downto 0); 
+signal carry : std_logic; 
 
 begin
 		sum <= std_logic_vector(unsigned(i_A) + unsigned(i_B)) when (i_SEL="00");
 		diff <= std_logic_vector(unsigned(i_A) - unsigned(i_B)) when (i_SEL="01");
 		sarA <= "00" & i_A(3 downto 2);
-		sarB <= (others=>'0');
+		shlB <= (others=>'0');
 		
 		o_RES <= sum when i_SEL(1 downto 0) ="00" else
 					diff when i_SEL(1 downto 0) ="01" else
 					sarA when i_SEL(1 downto 0) ="10" else
-					sarB;
-		 
-		tmp <= std_logic_vector(unsigned('0'&i_A) + unsigned('0'&i_B));
-		o_C <=tmp(4);
+					shlB;
+					
+		carry <= '1' when (i_SEL="00") and (unsigned(i_A) + unsigned(i_B) > 15) else
+					'1' when (i_SEL="01") and (unsigned(i_A) < unsigned(i_B)) else 
+					'0';
+		
+		
 		
 end beh_arch;
 
