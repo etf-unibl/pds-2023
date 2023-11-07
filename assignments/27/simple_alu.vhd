@@ -12,12 +12,12 @@ end simple_alu;
 
 architecture beh_arch of simple_alu is
 signal sum, diff, sarA, shlB : std_logic_vector(3 downto 0); 
-signal carry1, carry2 : std_logic; 
+signal carry1, carry2, carry_sar2, carry_shl4 : std_logic; 
 
 begin
 		sum <= std_logic_vector(unsigned(i_A) + unsigned(i_B));
 		diff <= std_logic_vector(unsigned(i_A) - unsigned(i_B));
-		sarA <= "11"&i_A(3 downto 2);
+		sarA <= "00"&i_A(3 downto 2);
 		shlB <= (others=>'0');
 		
 		
@@ -31,11 +31,15 @@ begin
 					
 		carry2 <= '1' when (unsigned(i_A) - unsigned(i_B) < 0 ) else
 					 '0';
+					 
+		carry_sar2 <= '0';
+		carry_shl4 <= '0';
+
+		o_C <= carry1 when i_SEL = "00" else
+				 carry2 when i_SEL = "01" else
+				 carry_sar2 when i_SEL = "10" else
+				 carry_shl4;
 					
-		o_C <= carry1 when i_SEL(1 downto 0) ="00" else
-				 carry2 when i_SEL(1 downto 0) ="01" else
-				 '0'; 
-		
 		
 end beh_arch;
 
