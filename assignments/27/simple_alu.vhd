@@ -19,20 +19,20 @@ begin
 		sarA <= "00"&i_A(3 downto 2);
 		shlB <= (others=>'0');
 
-
-		o_RES <= sum when i_SEL(1 downto 0) ="00" else
-					diff when i_SEL(1 downto 0) ="01" else
-					sarA when i_SEL(1 downto 0) ="10" else
-					shlB;
-					
+		
 		carry1 <= '1' when ((unsigned(i_A) + unsigned(i_B)) > 15) else
 					 '0';
 
-		carry2 <= '1' when ((unsigned(i_A) - unsigned(i_B)) < 0 ) else
+		carry2 <= '1' when ((unsigned(i_A) < unsigned(i_B))  ) else
 					 '0';
 
 		o_C <= carry1 when (i_SEL = "00") else
 				 carry2 when (i_SEL = "01") else
 				 carry_sar2 when (i_SEL = "10") else
 				 carry_shl4; 
+		
+		o_RES <= sum when i_SEL(1 downto 0) ="00" else
+					diff when i_SEL(1 downto 0) ="01" else
+					sarA when i_SEL(1 downto 0) ="10" else
+					shlB;		 
 end beh_arch;
