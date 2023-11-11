@@ -15,7 +15,8 @@ on:
 jobs:
   # This job checks the code style
   linter:
-    if: ${{ false }}  # disable for now
+    # Uncomment the line below to disable the linter job
+    #if: ${{ false }}
     runs-on: windows-latest
     env:
       PR_TITLE: ${{ github.event.pull_request.title }}
