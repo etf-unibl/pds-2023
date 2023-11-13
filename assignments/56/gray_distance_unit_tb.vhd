@@ -93,7 +93,7 @@ begin
         if j >= i then
           dist_tmp := j - i;
         else
-          dist_tmp := 2**c_N - (i - j);
+          dist_tmp := i - j;
         end if;
         assert(dist_tmp = to_integer(unsigned(dist_out))) severity error;
       end loop;

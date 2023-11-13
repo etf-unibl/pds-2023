@@ -57,6 +57,8 @@ begin
     variable diff    : integer;
     variable a_int   : integer;
     variable b_int   : integer;
+    variable op1     : integer;
+    variable op2     : integer;
     variable a_bin   : std_logic_vector(g_N-1 downto 0);
     variable b_bin   : std_logic_vector(g_N-1 downto 0);
   begin
@@ -69,10 +71,13 @@ begin
     a_int := to_integer(unsigned(a_bin));
     b_int := to_integer(unsigned(b_bin));
     if b_int >= a_int then
-      diff := b_int - a_int;
+      op1 := b_int;
+      op2 := a_int;
     else
-      diff := 2**g_N - (a_int - b_int);
+      op1 := a_int;
+      op2 := b_int;
     end if;
+    diff  := op1 - op2;
     DISTANCE_o <= std_logic_vector(to_unsigned(diff, DISTANCE_o'length));
   end process circ_logic;
 end arch;
