@@ -62,10 +62,11 @@ begin
   comp_check <= "00" when A_i(6 downto 0) = B_i(6 downto 0) else
                 "10" when A_i(6 downto 0) > B_i(6 downto 0) else
                 "01";
-  agtb_mag <=   '1' when comp_check = "01" and Mode_i = '1' and posit = '0' else
+  agtb_mag <=   '1' when comp_check = "01" and Mode_i = '1' and posit = '0'  else
                 '1' when comp_check = "10" and (Mode_i = '0' or posit = '1') else
                 '0';
-  AGTB_o <= agtb_mag when A_i(7) = B_i(7) else
-            a1_b0 when Mode_i = '0' else
+  AGTB_o <= agtb_mag when A_i(7) = B_i(7)   else
+            a1_b0    when Mode_i = '0'      else
+            '0'      when comp_check = "00" else
             not a1_b0;
 end arch;
