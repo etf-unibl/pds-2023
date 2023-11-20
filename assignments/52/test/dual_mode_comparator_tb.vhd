@@ -123,7 +123,7 @@ begin
           comp_test <= '0';
         end if;
       elsif A_i(7) = '0' and B_i(7) = '1' then
-        if A_i(6 downto 0) = B_i(6 downto 0) then
+        if A_i(6 downto 0) = B_i(6 downto 0) and A_i(6 downto 0) = "0000000" then
           comp_test <= '0';
         else
           comp_test <= '1';

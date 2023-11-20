@@ -67,6 +67,6 @@ begin
                 '0';
   AGTB_o <= agtb_mag when A_i(7) = B_i(7)   else
             a1_b0    when Mode_i = '0'      else
-            '0'      when comp_check = "00" else
+            '0'      when A_i(6 downto 0) = "0000000" and B_i(6 downto 0) = "0000000" else
             not a1_b0;
 end arch;
