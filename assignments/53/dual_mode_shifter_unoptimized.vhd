@@ -4,12 +4,12 @@
 -- https://github.com/etf-unibl/pds-2023/
 -----------------------------------------------------------------------------
 --
--- unit name:     bit_flipper
+-- unit name:     dual_mode_shifter_unoptimized
 --
 -- description:
 --
--- This file implements logic that flips the input number so that the MSB
--- becomes the LSB and vice versa.
+-- This file implements unoptimized bit shifter logic that can shift left or
+-- right 4 bits.
 --
 -----------------------------------------------------------------------------
 -- Copyright (c) 2023 Faculty of Electrical Engineering
@@ -41,18 +41,40 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity bit_flipper is
+entity dual_mode_shifter_unoptimized is
   port (
-  sh_i   : in  std_logic_vector(15 downto 0);
-  mode_i : in  std_logic;
-  sh_o   : out std_logic_vector(15 downto 0)
-  );
-end bit_flipper;
+  SH_IN_i  : in  std_logic_vector (15 downto 0);
+  MODE_i   : in  std_logic;
+  SH_OUT_o : out std_logic_vector (15 downto 0 )
+);
+end dual_mode_shifter_unoptimized;
 
-architecture arch of bit_flipper is
+architecture arch of dual_mode_shifter_unoptimized is
+  component right_shifter is
+    port (
+    sh_i : in std_logic_vector(15 downto 0);
+    sh_o : out std_logic_vector(15 downto 0)
+  );
+  end component;
+  component left_shifter is
+    port (
+    sh_i : in std_logic_vector(15 downto 0);
+    sh_o : out std_logic_vector(15 downto 0)
+  );
+  end component;
+  signal right_out, left_out : std_logic_vector(15 downto 0);
 begin
-  with mode_i select
-    sh_o <= sh_i when '0',
-            (sh_i(0) & sh_i(1) & sh_i(2) & sh_i(3) & sh_i(4) & sh_i(5) & sh_i(6) & sh_i(7)) &
-            (sh_i(8) & sh_i(9) & sh_i(10) & sh_i(11) & sh_i(12) & sh_i(13) & sh_i(14) & sh_i(15)) when others;
+  u1 : right_shifter
+    port map(
+      sh_i => SH_IN_i,
+      sh_o => right_out
+    );
+  u2 : left_shifter
+    port map(
+      sh_i => SH_IN_i,
+      sh_o => left_out
+    );
+  with MODE_i select
+   SH_OUT_o <= left_out when '1',
+               right_out when others;
 end arch;

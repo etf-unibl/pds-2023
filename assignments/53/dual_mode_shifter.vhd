@@ -8,7 +8,7 @@
 --
 -- description:
 --
---   This file implements bit shifter logic that can shift left or right.
+-- This file implements bit shifter logic that can shift left or right 4 bits.
 --
 -----------------------------------------------------------------------------
 -- Copyright (c) 2023 Faculty of Electrical Engineering
@@ -36,7 +36,6 @@
 -- OTHER DEALINGS IN THE SOFTWARE
 -----------------------------------------------------------------------------
 
-
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -49,37 +48,7 @@ entity dual_mode_shifter is
 );
 end dual_mode_shifter;
 
-architecture unoptimized_arch of dual_mode_shifter is
-  component right_shifter is
-    port (
-    sh_i : in std_logic_vector(15 downto 0);
-    sh_o : out std_logic_vector(15 downto 0)
-  );
-  end component;
-  component left_shifter is
-    port (
-    sh_i : in std_logic_vector(15 downto 0);
-    sh_o : out std_logic_vector(15 downto 0)
-  );
-  end component;
-  signal right_out, left_out : std_logic_vector(15 downto 0);
-begin
-  u1 : right_shifter
-    port map(
-      sh_i => SH_IN_i,
-      sh_o => right_out
-    );
-  u2 : left_shifter
-    port map(
-      sh_i => SH_IN_i,
-      sh_o => left_out
-    );
-  with MODE_i select
-   SH_OUT_o <= left_out when '1',
-               right_out when others;
-end unoptimized_arch;
-
-architecture optimized_arch of dual_mode_shifter is
+architecture arch of dual_mode_shifter is
   component right_shifter is
     port (
     sh_i : in std_logic_vector(15 downto 0);
@@ -112,9 +81,4 @@ begin
       mode_i => MODE_i,
       sh_o   => SH_OUT_o
     );
-end optimized_arch;
-
-configuration dual_mode_shifter_cfg of dual_mode_shifter is
-  for optimized_arch
-  end for;
-end dual_mode_shifter_cfg;
+end arch;
