@@ -54,13 +54,13 @@ begin
 always : process  
 begin                                              
 SH_IN_i <= (others => '0');   
-MODE_i <= '0';                                                             
+MODE_i <= '1';                                                             
   for i in 0 to (2 ** 16) loop
     SH_IN_i <= std_logic_vector(to_unsigned(i, 16));
 	 wait for 10 ns;
 	 assert SH_OUT_o = (SH_IN_i(3 downto 0) & SH_IN_i(15 downto 4)) report "Expected " & integer'image(to_integer(unsigned(SH_IN_i(3 downto 0) & SH_IN_i(15 downto 4)))) & "; Number: " & integer'image(to_integer(unsigned(SH_OUT_o))) severity error;
   end loop;
-  MODE_i <= '1';
+  MODE_i <= '0';
   for i in 0 to (2 ** 16) loop
     SH_IN_i <= std_logic_vector(to_unsigned(i, 16));
 	 wait for 10 ns;

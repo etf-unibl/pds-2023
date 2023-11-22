@@ -75,6 +75,6 @@ begin
       sh_o => left_out
     );
   with MODE_i select
-   SH_OUT_o <= left_out when '1',
+   SH_OUT_o <= left_out when '0',
                right_out when others;
 end arch;

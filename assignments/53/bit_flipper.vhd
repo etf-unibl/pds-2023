@@ -52,7 +52,7 @@ end bit_flipper;
 architecture arch of bit_flipper is
 begin
   with mode_i select
-    sh_o <= sh_i when '0',
+    sh_o <= sh_i when '1',
             (sh_i(0) & sh_i(1) & sh_i(2) & sh_i(3) & sh_i(4) & sh_i(5) & sh_i(6) & sh_i(7)) &
             (sh_i(8) & sh_i(9) & sh_i(10) & sh_i(11) & sh_i(12) & sh_i(13) & sh_i(14) & sh_i(15)) when others;
 end arch;
