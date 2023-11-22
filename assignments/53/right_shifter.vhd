@@ -49,7 +49,7 @@ entity right_shifter is
 end right_shifter;
 
 architecture arch of right_shifter is
-  constant c_SHIFT : integer := 4;
+  constant c_SHIFT : integer := 1;
 begin
   sh_o <= sh_i(c_SHIFT - 1 downto 0) & sh_i(15 downto c_SHIFT);
 end arch;

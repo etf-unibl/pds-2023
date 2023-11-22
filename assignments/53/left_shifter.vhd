@@ -49,7 +49,7 @@ entity left_shifter is
 end left_shifter;
 
 architecture arch of left_shifter is
-  constant c_SHIFT : integer := 4;
+  constant c_SHIFT : integer := 1;
 begin
   sh_o <= sh_i(15 - c_SHIFT downto 0) & sh_i(15 downto 15 - c_SHIFT + 1);
 end arch;
