@@ -48,12 +48,11 @@ entity bcd_adder is
 end bcd_adder;
 
 architecture arch of bcd_adder is
-  signal temp_SUM : unsigned(std_logic_vector(15 downto 0));
+  signal temp_SUM : unsigned(15 downto 0) := (others => '0');
 begin
   -- Proces
-  process(A_i, B_i)
+  process(A_i, B_i, temp_SUM)
   begin
-    temp_SUM <= (others => '0');
     temp_SUM(3 downto 0) <= unsigned(A_i(3 downto 0)) + unsigned(B_i(3 downto 0));
     temp_SUM(7 downto 4) <= unsigned(A_i(7 downto 4)) + unsigned(B_i(7 downto 4));
     temp_SUM(11 downto 8) <= unsigned(A_i(11 downto 8)) + unsigned(B_i(11 downto 8));
