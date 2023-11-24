@@ -54,7 +54,7 @@ INPUT_i : in std_logic_vector(3 downto 0);
 OUTPUT_o : out std_logic_vector(2 downto 0)
 );
   end component;
-  signal OUTPUT_DATA1_o, OUTPUT_DATA2_o, OUTPUT_DATA3_o, OUTPUT_DATA4_o : std_logic_vector(3 downto 0);
+  signal OUTPUT_DATA1_o, OUTPUT_DATA2_o, OUTPUT_DATA3_o, OUTPUT_DATA4_o : std_logic_vector(2 downto 0);
 
 begin
   lzc1 : leading_zero_counter_unit4
