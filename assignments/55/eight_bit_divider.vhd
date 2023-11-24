@@ -61,6 +61,8 @@ begin
       pom1 := "0000000" & A_i((7-i) downto (7-i));
       a_temp := std_logic_vector(unsigned(a_temp) or unsigned(pom1));
       if a_temp < B_i then
+		  r_temp := a_temp;
+		  a_temp := "00000000";
       else
         a_temp := std_logic_vector(unsigned(a_temp) - unsigned(B_i));
         r_temp := std_logic_vector(unsigned(r_temp) or unsigned(tmp));
