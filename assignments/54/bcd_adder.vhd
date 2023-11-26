@@ -48,19 +48,20 @@ entity bcd_adder is
 end bcd_adder;
 
 architecture arch of bcd_adder is
-  signal temp_SUM : unsigned(15 downto 0);
+  signal temp_SUM1 : unsigned(15 downto 0);
+  signal temp_SUM2 : unsigned(15 downto 0);
 begin
   -- Proces
-  process(A_i, B_i, temp_SUM)
+  process(A_i, B_i, temp_SUM1,temp_SUM2)
   begin
-    temp_SUM(3 downto 0) <= unsigned(A_i(3 downto 0)) + unsigned(B_i(3 downto 0));
-    temp_SUM(7 downto 4) <= unsigned(A_i(7 downto 4)) + unsigned(B_i(7 downto 4));
-    temp_SUM(11 downto 8) <= unsigned(A_i(11 downto 8)) + unsigned(B_i(11 downto 8));
+    temp_SUM1(3 downto 0) <= unsigned(A_i(3 downto 0)) + unsigned(B_i(3 downto 0));
+    temp_SUM1(7 downto 4) <= unsigned(A_i(7 downto 4)) + unsigned(B_i(7 downto 4));
+    temp_SUM1(11 downto 8) <= unsigned(A_i(11 downto 8)) + unsigned(B_i(11 downto 8));
     for i in 0 to 2 loop
-      if unsigned(temp_SUM(i * 4 + 3 downto i * 4)) > "1001" then
-        temp_SUM(i * 4 + 3 downto i * 4) <= unsigned(temp_SUM(i * 4 + 3 downto i * 4)) + "0110";
+      if unsigned(temp_SUM1(i * 4 + 3 downto i * 4)) > "1001" then
+        temp_SUM2(i * 4 + 3 downto i * 4) <= unsigned(temp_SUM1(i * 4 + 3 downto i * 4)) + "0110";
       end if;
     end loop;
   end process;
-  SUM_o <= std_logic_vector(temp_SUM);
+  SUM_o <= std_logic_vector(temp_SUM2);
 end arch;
