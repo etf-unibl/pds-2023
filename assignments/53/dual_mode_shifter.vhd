@@ -8,7 +8,7 @@
 --
 -- description:
 --
--- This file implements bit shifter logic that can shift left or right 4 bits.
+-- This file implements bit shifter logic that can shift left or right 1 bit.
 --
 -----------------------------------------------------------------------------
 -- Copyright (c) 2023 Faculty of Electrical Engineering
