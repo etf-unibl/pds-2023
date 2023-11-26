@@ -4,11 +4,11 @@
 -- https://github.com/etf-unibl/pds-2023/
 -----------------------------------------------------------------------------
 --
--- unit name:     LEADING ZERO COUNTER CIRCUIT
+-- unit name:     LEADING ZERO COUNTER UNIT4
 --
 -- description:
 --
---   This file implements a simple leading zero counter logic.
+--   This file implements a circuit for counting the leading zeros of an input 4 bit number.
 --
 -----------------------------------------------------------------------------
 -- Copyright (c) 2023 Faculty of Electrical Engineering
