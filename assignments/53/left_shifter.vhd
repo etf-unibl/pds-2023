@@ -8,8 +8,7 @@
 --
 -- description:
 --
--- This file implements bit shifter logic that shifts the input number 4
--- bits to the left.
+-- This file implements bit shifter logic that shifts the input number 1 bit to the left.
 --
 -----------------------------------------------------------------------------
 -- Copyright (c) 2023 Faculty of Electrical Engineering
