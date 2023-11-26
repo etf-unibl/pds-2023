@@ -48,7 +48,7 @@ entity bcd_adder is
 end bcd_adder;
 
 architecture arch of bcd_adder is
-  signal temp_SUM : unsigned(15 downto 0) := (others => '0');
+  signal temp_SUM : unsigned(15 downto 0);
 begin
   -- Proces
   process(A_i, B_i, temp_SUM)
