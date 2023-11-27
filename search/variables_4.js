@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['std_5flogic_5f1164_0',['std_logic_1164',['../classtest.html#acd03516902501cd1c7296a98e22c6fcb',1,'test']]]
+  ['g_5fn_0',['g_N',['../classgray__distance__unit.html#aa747c9d815e67533f0dc1edea60c0244',1,'gray_distance_unit']]]
 ];
