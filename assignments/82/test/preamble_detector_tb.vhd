@@ -31,9 +31,9 @@ architecture tb_arch of preamble_detector_tb is
 
 	signal i : integer := 0;	-- loop variable
 
-	-- record where some characteristic sequences will be stored and output that corresponds them
+	-- record where some characteristic bit_sequences will be stored and output that corresponds them
 	type test_vector is record
-	  sequence : std_logic_vector(15 downto 0);
+	  bit_sequence : std_logic_vector(15 downto 0);
 	  match    : std_logic;
 	end record;
 
@@ -83,23 +83,23 @@ begin
 
 	 for i in test_vectors'range loop
 
-	   test_in <= test_vectors(i).sequence;
+	   test_in <= test_vectors(i).bit_sequence;
 		wait for T;
 		for j in 0 to 15 loop
 		  data_i <= test_in(15-j);
 		  wait for T;
 		end loop;
 
-		report "Test sequence " & integer'image(i) & ", " &
-		"for input sequence " & std_logic'image(test_in(15)) & std_logic'image(test_in(14)) & std_logic'image(test_in(13)) &
+		report "Test bit_sequence " & integer'image(i) & ", " &
+		"for input bit_sequence " & std_logic'image(test_in(15)) & std_logic'image(test_in(14)) & std_logic'image(test_in(13)) &
 	   std_logic'image(test_in(12)) & std_logic'image(test_in(10)) & std_logic'image(test_in(9)) & std_logic'image(test_in(8)) &
 	   std_logic'image(test_in(7)) & std_logic'image(test_in(6)) & std_logic'image(test_in(5)) & std_logic'image(test_in(3)) &
 		std_logic'image(test_in(3)) & std_logic'image(test_in(2)) & std_logic'image(test_in(1)) & std_logic'image(test_in(0)) &
  	   " Expected output is " & std_logic'image(test_vectors(i).match) & " and we get " & std_logic'image(match_o) & ".";
 
 		assert(match_o = test_vectors(i).match)
-		report "Test sequence " & integer'image(i) & " failed " &
-		"for sequence given above. Test failed!"
+		report "Test bit_sequence " & integer'image(i) & " failed " &
+		"for bit_sequence given above. Test failed!"
 	   severity failure;
 
 	 end loop;
