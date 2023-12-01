@@ -85,9 +85,9 @@ begin
   process(data_i, clk_i)
   begin
     if falling_edge(clk_i) then
-      if data_i = '0' and prev = '1' then
+      if data_i = '1' and prev = '0' then
         next_reg <= one;
-      elsif data_i = '1' and prev = '0' then
+      elsif data_i = '0' and prev = '1' then
         next_reg <= zero;
       else
         next_reg <= idle;
