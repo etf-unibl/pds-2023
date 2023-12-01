@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['one_5fbit_5ffull_5fadder_0',['one_bit_full_adder',['../classone__bit__full__adder.html',1,'']]],
-  ['one_5fbit_5ffull_5fadder_5farch_1',['one_bit_full_adder_arch',['../classone__bit__full__adder_1_1one__bit__full__adder__arch.html',1,'one_bit_full_adder']]],
-  ['one_5fbit_5ffull_5fsubtractor_2',['one_bit_full_subtractor',['../classone__bit__full__subtractor.html',1,'']]],
-  ['onebit_5farch_3',['onebit_arch',['../classone__bit__full__subtractor_1_1onebit__arch.html',1,'one_bit_full_subtractor']]]
+  ['leading_5fzero_5fcounter_5funit_0',['leading_zero_counter_unit',['../classleading__zero__counter__unit.html',1,'']]],
+  ['leading_5fzero_5fcounter_5funit4_1',['leading_zero_counter_unit4',['../classleading__zero__counter__unit4.html',1,'']]],
+  ['left_5fshifter_2',['left_shifter',['../classleft__shifter.html',1,'']]]
 ];
