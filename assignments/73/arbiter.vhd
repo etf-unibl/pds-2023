@@ -57,7 +57,7 @@ entity arbiter is
 end arbiter;
 
 --! @brief Architecture definition of the arbiter
---! @details Architecture written using Moore FSM theory with state register logic, next state logic and Moore output logic in separate processes.
+--! @details Architecture written using Moore FSM theory
 architecture arch of arbiter is
   type t_state is (waitr0, waitr1, grant0, grant1); --! Type defining possible states of the machine
   signal reg_state  : t_state; --! Register state signal
