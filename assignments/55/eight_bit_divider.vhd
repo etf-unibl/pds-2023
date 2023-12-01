@@ -54,6 +54,10 @@ begin
   calculate_division : process(A_i, B_i)
     variable a_temp, tmp, pom1, r_temp : std_logic_vector(7 downto 0);
   begin
+    if B_i = "00000000" then
+    Q_o <= "11111111";
+    R_o <= "11111111";
+  else
     a_temp := "00000000";
     r_temp := "00000000";
     tmp := "10000000";
@@ -66,6 +70,7 @@ begin
       else
         a_temp := std_logic_vector(unsigned(a_temp) - unsigned(B_i));
         r_temp := std_logic_vector(unsigned(r_temp) or unsigned(tmp));
+		  a_temp := std_logic_vector(unsigned(r_temp) or unsigned(tmp));
       end if;
       tmp := '0' & tmp(7 downto 1);
       a_temp := a_temp(6 downto 0) & '0';
@@ -73,6 +78,7 @@ begin
     a_temp := '0' & a_temp(7 downto 1);
     Q_o <= a_temp;
     R_o <= r_temp;
+	 end if;
   end process calculate_division;
 
 end architecture arch;
