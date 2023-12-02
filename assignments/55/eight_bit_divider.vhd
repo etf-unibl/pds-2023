@@ -73,7 +73,6 @@ begin
       else
         a_temp := std_logic_vector(unsigned(a_temp) - unsigned(B_i));
         r_temp := std_logic_vector(unsigned(r_temp) or unsigned(tmp));
-        a_temp := std_logic_vector(unsigned(r_temp) or unsigned(tmp));
       end if;
       tmp := '0' & tmp(7 downto 1);
       a_temp := a_temp(6 downto 0) & '0';
