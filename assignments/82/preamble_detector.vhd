@@ -8,7 +8,8 @@
 --
 -- description:
 --
---   This file implements a logic for detecting sequence of bits "101010010" (known as Ethernet II preamble
+--   This file implements a logic for detecting sequence of bits "101010010"
+--   (known as Ethernet II preamble)
 --
 -----------------------------------------------------------------------------
 -- Copyright (c) 2023 Faculty of Electrical Engineering
@@ -41,24 +42,23 @@
 --! @brief Preamble detector circuit for sequence "10101010"
 -----------------------------------------------------------------------------
 
---! Use standard library 
+--! Use standard library
 library ieee;
 --! Use logic elements
 use ieee.std_logic_1164.all;
 
---! Preamble detector design element. It has asynchronous reset input rst_i, standard clock pulse input clk_i,
---! sequence bits are coming to serial one-bit data_i input, and output is match_o, which is one-bit output that becomes logic one 
---! when correct sequence of bits is recognized at the serial input.
+--! Preamble detector design element. The task of this element is to recognize bit pattern at the
+--! serial input port ant acknowledge it by setting output port to logic one.
 entity preamble_detector is
   port(
-      clk_i   : in  std_logic;
-      rst_i   : in  std_logic;
-      data_i  : in  std_logic;
-      match_o : out std_logic
+      clk_i   : in  std_logic;  --! Standard clock pulse input
+      rst_i   : in  std_logic;  --! Asynchronous reset input
+      data_i  : in  std_logic;  --! Serial one-bit input for data sequence
+      match_o : out std_logic   --! One-bit output, set to logic one when correct sequence of bits is at the serial input
    );
 end preamble_detector;
 
---! @brief Architecture definition of detector
+--! @brief Architecture definition of preamble detector.
 --! @details Architecture designed using Moore FSM as requested in the task. It has usual logic divided in three segments
 --! (register, next-state and output segment. FSM has 9 states, which is entered based on current register state.
 architecture arch of preamble_detector is
