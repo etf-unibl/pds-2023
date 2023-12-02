@@ -52,11 +52,14 @@ architecture arch of eight_bit_divider is
 begin
 
   calculate_division : process(A_i, B_i)
-    variable a_temp, tmp, pom1, r_temp : std_logic_vector(7 downto 0);
+    variable a_temp, tmp, pom1, r_temp : std_logic_vector(7 downto 0); 
   begin
     if B_i = "00000000" then
     Q_o <= "11111111";
     R_o <= "11111111";
+  elsif A_i < B_i then
+    Q_o <= "00000000";
+    R_o <= A_i;
   else
     a_temp := "00000000";
     r_temp := "00000000";
