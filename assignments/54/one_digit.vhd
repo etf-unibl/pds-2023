@@ -4,11 +4,11 @@
 -- https://github.com/etf-unibl/pds-2023/
 -----------------------------------------------------------------------------
 --
--- unit name:     BCD_ADDER
+-- unit name:     ONE_DIGIT
 --
 -- description:
 --
---   This file implements a simple BCD ADDER logic.
+--   This file implements an one digit of BCD_ADDER.
 --
 -----------------------------------------------------------------------------
 -- Copyright (c) 2023 Faculty of Electrical Engineering
@@ -39,52 +39,30 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity bcd_adder is
+entity one_digit is
   port (
-        A_i   : in  std_logic_vector(11 downto 0);
-        B_i   : in  std_logic_vector(11 downto 0);
-        SUM_o : out std_logic_vector(15 downto 0)
+        a_i     : in  std_logic_vector(3 downto 0);
+        b_i     : in  std_logic_vector(3 downto 0);
+        carry_i : in  std_logic;
+        s_o     : out std_logic_vector(3 downto 0);
+        carry_o : out std_logic
     );
-end bcd_adder;
+end one_digit;
 
-architecture arch of bcd_adder is
-  component one_digit is
-    port(
-         a_i :     in  std_logic_vector(3 downto 0);
-         b_i :     in  std_logic_vector(3 downto 0);
-         carry_i : in  std_logic;
-         s_o :     out std_logic_vector(3 downto 0);
-         carry_o : out std_logic
-        );
-  end component;
-  signal sum1, sum2, sum3 : std_logic_vector(3 downto 0);
-  signal temp : std_logic_vector(3 downto 0) := "0000";
-  signal carry1, carry2, carry3 : std_logic;
+architecture arch of one_digit is
+  signal temp1 : unsigned(4 downto 0);
+  signal tempa : std_logic_vector(4 downto 0) := "00000";
+  signal tempb : std_logic_vector(4 downto 0) := "00000";
+  signal tempc : std_logic_vector(4 downto 0) := "00000";
+  signal mask : unsigned(3 downto 0) := "0110";
+
 begin
-  d1 : one_digit port map (
-                           a_i       => A_i(3 downto 0),
-                           b_i       => B_i(3 downto 0),
-                           carry_i   => '0',
-                           carry_o   => carry1,
-                           s_o       => sum1
-                          );
-  d2 : one_digit port map (
-                           a_i       => A_i(7 downto 4),
-                           b_i       => B_i(7 downto 4),
-                           carry_i   => carry1,
-                           carry_o   => carry2,
-                           s_o       => sum2
-                          );
-  d3 : one_digit port map (
-                           a_i       => A_i(11 downto 8),
-                           b_i       => B_i(11 downto 8),
-                           carry_i   => carry2,
-                           carry_o   => carry3,
-                           s_o       => sum3
-                           );
-  temp(0) <= carry3;
-  SUM_o(3 downto 0) <= sum1;
-  SUM_o(7 downto 4) <= sum2;
-  SUM_o(11 downto 8) <= sum3;
-  SUM_o(15 downto 12) <= temp;
+  tempa(3 downto 0) <= a_i;
+  tempb(3 downto 0) <= b_i;
+  tempc(0) <= carry_i;
+  temp1 <= unsigned(tempa) + unsigned(tempb) + unsigned(tempc);
+  carry_o <= '1' when temp1 > 9 else
+'0';
+  s_o <= std_logic_vector(temp1(3 downto 0) + mask) when temp1 > 9 else
+std_logic_vector(temp1(3 downto 0));
 end arch;
