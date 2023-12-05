@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bit_5fflipper_2evhd_0',['bit_flipper.vhd',['../bit__flipper_8vhd.html',1,'']]]
+  ['arbiter_2evhd_0',['arbiter.vhd',['../arbiter_8vhd.html',1,'']]]
 ];
