@@ -10,5 +10,6 @@ var searchData=
   ['carry_5fsar2_7',['carry_sar2',['../classsimple__alu_1_1beh__arch.html#a3cef01e88436a99f0b374c032dcd3988',1,'simple_alu::beh_arch']]],
   ['carry_5fshl4_8',['carry_shl4',['../classsimple__alu_1_1beh__arch.html#ab2fd2ebf7feadd827b320743b8a18098',1,'simple_alu::beh_arch']]],
   ['clk_9',['clk',['../classtest.html#a50da91b765765ac486df1b41692e962f',1,'test']]],
-  ['comp_5fcheck_10',['comp_check',['../classdual__mode__comparator_1_1arch.html#abbcd61372e7c6f6ca2bd80ec8d0b3611',1,'dual_mode_comparator::arch']]]
+  ['clk_5fi_10',['clk_i',['../classpreamble__detector.html#ae8d3e5458b0e3cd523d6461463e36fe8',1,'preamble_detector']]],
+  ['comp_5fcheck_11',['comp_check',['../classdual__mode__comparator_1_1arch.html#abbcd61372e7c6f6ca2bd80ec8d0b3611',1,'dual_mode_comparator::arch']]]
 ];
