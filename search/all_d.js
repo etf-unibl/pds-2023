@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['r_5fi_0',['r_i',['../classarbiter.html#abcf85567e48efb38aa763510c2fca197',1,'arbiter']]],
-  ['reg_5fstate_1',['reg_state',['../classarbiter_1_1arch.html#a8273367c0f48df3120f81dee24e05962',1,'arbiter::arch']]],
-  ['right_5fout_2',['right_out',['../classdual__mode__shifter__unoptimized_1_1arch.html#ab6c9051aff9d3b3f942da3fabe1bb71c',1,'dual_mode_shifter_unoptimized::arch']]],
-  ['right_5fshifter_3',['right_shifter',['../classright__shifter.html',1,'right_shifter'],['../classdual__mode__shifter_1_1arch.html#a675b750dd4639b07c88ddbf5d97489c7',1,'dual_mode_shifter.arch.right_shifter'],['../classdual__mode__shifter__unoptimized_1_1arch.html#a675b750dd4639b07c88ddbf5d97489c7',1,'dual_mode_shifter_unoptimized.arch.right_shifter']]],
-  ['right_5fshifter_2evhd_4',['right_shifter.vhd',['../right__shifter_8vhd.html',1,'']]],
-  ['rst_5fi_5',['rst_i',['../classarbiter.html#ab86c7a8eec3a8327e506892977f85708',1,'arbiter.rst_i'],['../classmanchester__encoder.html#ab86c7a8eec3a8327e506892977f85708',1,'manchester_encoder.rst_i'],['../classpreamble__detector.html#ab86c7a8eec3a8327e506892977f85708',1,'preamble_detector.rst_i']]]
+  ['posit_0',['posit',['../classdual__mode__comparator_1_1arch.html#ae8f0c7f5a88bd70c199ab9468d204fdf',1,'dual_mode_comparator::arch']]],
+  ['preamble_5fdetector_1',['preamble_detector',['../classpreamble__detector.html',1,'']]],
+  ['preamble_5fdetector_2evhd_2',['preamble_detector.vhd',['../preamble__detector_8vhd.html',1,'']]],
+  ['process_5f0_3',['PROCESS_0',['../classmanchester__encoder_1_1arch.html#a5c71b08218475db426d1f95f8b57218b',1,'manchester_encoder::arch']]],
+  ['process_5f1_4',['PROCESS_1',['../classmanchester__encoder_1_1arch.html#a2886cac1d8ad4760c379cfdb67ade62e',1,'manchester_encoder::arch']]],
+  ['process_5f2_5',['PROCESS_2',['../classpreamble__detector_1_1arch.html#a0c7302525d0781a9219366dd2c4c7ab2',1,'preamble_detector::arch']]],
+  ['process_5f3_6',['PROCESS_3',['../classpreamble__detector_1_1arch.html#acc50ef8d45444f84f4f67d9ea32df4d4',1,'preamble_detector::arch']]]
 ];
