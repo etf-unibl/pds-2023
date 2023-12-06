@@ -15,11 +15,12 @@ var searchData=
   ['o_5fy_12',['o_Y',['../classdecoder__2__4.html#aa0f87e355bfc8ac4ad326300763c5eb7',1,'decoder_2_4']]],
   ['one_5fbit_5ffull_5fadder_13',['one_bit_full_adder',['../classfour__bit__full__adder_1_1arch.html#a06b4af023068b4329996951fd8773bdb',1,'four_bit_full_adder.arch.one_bit_full_adder'],['../classfour__bit__full__adder_1_1four__bit__full__adder__arch.html#a06b4af023068b4329996951fd8773bdb',1,'four_bit_full_adder.four_bit_full_adder_arch.one_bit_full_adder']]],
   ['one_5fbit_5ffull_5fsubtractor_14',['one_bit_full_subtractor',['../classfour__bit__full__subtractor_1_1fourbit__arch.html#ab7842e904bc6f4b67c1e9026de78c3b3',1,'four_bit_full_subtractor::fourbit_arch']]],
-  ['output_15',['output',['../classtest.html#af097f41543ab108c0ede6c16e1380908',1,'test.output'],['../classone__bit__full__adder_1_1one__bit__full__adder__arch.html#aa80f57dba2091d19317e0350d169440e',1,'one_bit_full_adder.one_bit_full_adder_arch.output']]],
-  ['output_5fdata1_5fo_16',['OUTPUT_DATA1_o',['../classleading__zero__counter__unit_1_1arch.html#ad6103759dbfd83659e71073e196aa968',1,'leading_zero_counter_unit::arch']]],
-  ['output_5fdata2_5fo_17',['OUTPUT_DATA2_o',['../classleading__zero__counter__unit_1_1arch.html#a2ba269d182c43905422796617b6b856b',1,'leading_zero_counter_unit::arch']]],
-  ['output_5fdata3_5fo_18',['OUTPUT_DATA3_o',['../classleading__zero__counter__unit_1_1arch.html#a0781d10b7f0f36a5ea182d22123a5fc4',1,'leading_zero_counter_unit::arch']]],
-  ['output_5fdata4_5fo_19',['OUTPUT_DATA4_o',['../classleading__zero__counter__unit_1_1arch.html#ad77f6cf6248c71d2bad0d5a9aacfec10',1,'leading_zero_counter_unit::arch']]],
-  ['output_5fdata_5fo_20',['OUTPUT_DATA_o',['../classleading__zero__counter__unit.html#a6f8b4f869d27457e8fe8237393b3df95',1,'leading_zero_counter_unit']]],
-  ['output_5fo_21',['OUTPUT_o',['../classleading__zero__counter__unit4.html#a54c9a61810987d96983ccaf204d827c1',1,'leading_zero_counter_unit4']]]
+  ['one_5fdigit_15',['one_digit',['../classbcd__adder_1_1arch.html#acc29369881b4d6da8fb3fd85eacea443',1,'bcd_adder::arch']]],
+  ['output_16',['output',['../classtest.html#af097f41543ab108c0ede6c16e1380908',1,'test.output'],['../classone__bit__full__adder_1_1one__bit__full__adder__arch.html#aa80f57dba2091d19317e0350d169440e',1,'one_bit_full_adder.one_bit_full_adder_arch.output']]],
+  ['output_5fdata1_5fo_17',['OUTPUT_DATA1_o',['../classleading__zero__counter__unit_1_1arch.html#ad6103759dbfd83659e71073e196aa968',1,'leading_zero_counter_unit::arch']]],
+  ['output_5fdata2_5fo_18',['OUTPUT_DATA2_o',['../classleading__zero__counter__unit_1_1arch.html#a2ba269d182c43905422796617b6b856b',1,'leading_zero_counter_unit::arch']]],
+  ['output_5fdata3_5fo_19',['OUTPUT_DATA3_o',['../classleading__zero__counter__unit_1_1arch.html#a0781d10b7f0f36a5ea182d22123a5fc4',1,'leading_zero_counter_unit::arch']]],
+  ['output_5fdata4_5fo_20',['OUTPUT_DATA4_o',['../classleading__zero__counter__unit_1_1arch.html#ad77f6cf6248c71d2bad0d5a9aacfec10',1,'leading_zero_counter_unit::arch']]],
+  ['output_5fdata_5fo_21',['OUTPUT_DATA_o',['../classleading__zero__counter__unit.html#a6f8b4f869d27457e8fe8237393b3df95',1,'leading_zero_counter_unit']]],
+  ['output_5fo_22',['OUTPUT_o',['../classleading__zero__counter__unit4.html#a54c9a61810987d96983ccaf204d827c1',1,'leading_zero_counter_unit4']]]
 ];
