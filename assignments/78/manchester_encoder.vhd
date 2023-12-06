@@ -47,6 +47,21 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 --! @brief Manchester encoder entity description
+--! The `manchester_encoder` entity is responsible for encoding binary data using the Manchester encoding scheme.
+--! It takes a clock signal (`clk_i`), a reset signal (`rst_i`), a valid signal (`v_i`), and the input binary data (`d_i`).
+--! The output, `y_o`, represents the Manchester-encoded signal.
+
+--! @details The Manchester encoding is performed when the `v_i` signal is set (valid).
+
+--! @structure
+--! The entity has the following ports:
+--! `clk_i` is the clock input, used to synchronize the circuit.
+--! `rst_i` is the reset input, which resets the state machine and other internal signals when asserted.
+--! `v_i` is a signal that indicates whether the input data (`d_i`) is valid.
+--!  When '1', the data is considered valid.
+--! `d_i` is the input binary data that needs to be Manchester encoded.
+--! `y_o` is the output representing the Manchester-encoded data.
+
 
 entity manchester_encoder is
   port (
@@ -70,7 +85,7 @@ begin
 -- state register
   process(clk_i,rst_i)
   begin
-    if rst_i = '1' then
+    if rst_i = '1'then
       state_reg <= idle;
     elsif rising_edge(clk_i)then
       state_reg <= state_next;
@@ -121,6 +136,6 @@ begin
 
 -- output
 
-  y_o <= '1' when state_reg = s1a or state_reg = s0b   else '0';
+  y_o <= '1' when state_reg = s1a or state_reg = s0b  else '0';
 
 end arch;
