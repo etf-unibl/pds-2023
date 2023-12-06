@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['x_0',['X',['../classone__bit__full__subtractor.html#ac7615c93f5fbea0816f7eb7d88e8fdf7',1,'one_bit_full_subtractor']]]
+  ['v_5fi_0',['v_i',['../classmanchester__encoder.html#ae3d189541fe5918f1c92c3561e8d87e4',1,'manchester_encoder']]]
 ];

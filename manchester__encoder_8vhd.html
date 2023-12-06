@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PDS-2023: Member List</title>
+<title>PDS-2023: 78/manchester_encoder.vhd File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,22 +69,31 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="classpreamble__detector.html">preamble_detector</a></li><li class="navelem"><a class="el" href="classpreamble__detector_1_1arch.html">arch</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_1730d74e7c313e5694b9ca39f8cd56db.html">78</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">preamble_detector.arch Member List</div></div>
+  <div class="summary">
+<a href="#nested-classes">Entities</a>  </div>
+  <div class="headertitle"><div class="title">manchester_encoder.vhd File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="classpreamble__detector_1_1arch.html">preamble_detector.arch</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="classpreamble__detector_1_1arch.html#a0c7302525d0781a9219366dd2c4c7ab2">PROCESS_2</a>clk_i,rst_i</td><td class="entry"><a class="el" href="classpreamble__detector_1_1arch.html">preamble_detector.arch</a></td><td class="entry"><span class="mlabel">Process</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="classpreamble__detector_1_1arch.html#acc50ef8d45444f84f4f67d9ea32df4d4">PROCESS_3</a>data_i,state_reg</td><td class="entry"><a class="el" href="classpreamble__detector_1_1arch.html">preamble_detector.arch</a></td><td class="entry"><span class="mlabel">Process</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classpreamble__detector_1_1arch.html#a9705d33766f531e997322423d3535c9e">state_next</a></td><td class="entry"><a class="el" href="classpreamble__detector_1_1arch.html">preamble_detector.arch</a></td><td class="entry"><span class="mlabel">Signal</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="classpreamble__detector_1_1arch.html#acedcbd0b0fdb8979c2620fbb482f52fe">state_reg</a></td><td class="entry"><a class="el" href="classpreamble__detector_1_1arch.html">preamble_detector.arch</a></td><td class="entry"><span class="mlabel">Signal</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classpreamble__detector_1_1arch.html#a7f03eb57c28859a1ac2db89919ba4796">t_sequence_states</a></td><td class="entry"><a class="el" href="classpreamble__detector_1_1arch.html">preamble_detector.arch</a></td><td class="entry"><span class="mlabel">Type</span></td></tr>
-</table></div><!-- contents -->
+<p>This file implements Manchester encoder circuit.  
+<a href="#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Entities</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmanchester__encoder.html">manchester_encoder</a> &#160;</td><td class="memItemRight" valign="bottom">entity</td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manchester encoder entity description The <code><a class="el" href="classmanchester__encoder.html" title="Manchester encoder entity description The manchester_encoder entity is responsible for encoding binar...">manchester_encoder</a></code> entity is responsible for encoding binary data using the Manchester encoding scheme. It takes a clock signal (<code>clk_i</code>), a reset signal (<code>rst_i</code>), a valid signal (<code>v_i</code>), and the input binary data (<code>d_i</code>). The output, <code>y_o</code>, represents the Manchester-encoded signal. @structure The entity has the following ports: `clk_i` is the clock input, used to synchronize the circuit. `rst_i` is the reset input, which resets the state machine and other internal signals when asserted. `v_i` is a signal that indicates whether the input data (`d_i`) is valid. When '1', the data is considered valid. `d_i` is the input binary data that needs to be Manchester encoded. `y_o` is the output representing the Manchester-encoded data.  <a href="classmanchester__encoder.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmanchester__encoder_1_1arch.html">manchester_encoder.arch</a> &#160;</td><td class="memItemRight" valign="bottom">architecture</td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Architecture definition of Manchester encoder.  <a href="classmanchester__encoder_1_1arch.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This file implements Manchester encoder circuit. </p>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
