@@ -70,7 +70,7 @@ end manchester_decoder;
 architecture arch of manchester_decoder is
   type t_state is
     (idle, one, zero);
-  signal state_reg, next_reg : t_state;
+  signal state_reg, next_reg : t_state := idle;
   signal current : std_logic := '0';
 begin
   -- sequential part
