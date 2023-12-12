@@ -87,25 +87,25 @@ begin
     case state_reg is
       when idle => 
         if data_i = '1' and current  = '0' then
-          next_reg <= one;
-        elsif data_i = '0' and current = '1' then
           next_reg <= zero;
+        elsif data_i = '0' and current = '1' then
+          next_reg <= one;
         else
           next_reg <= idle;
         end if;
       when one => 
         if data_i = '0' and current = '1' then
-          next_reg <= zero;
-        elsif data_i = '1' and current = '0' then
           next_reg <= one;
+        elsif data_i = '1' and current = '0' then
+          next_reg <= zero;
         else
           next_reg <= idle;
         end if;
       when zero =>
         if data_i = '0' and current = '1' then
-          next_reg <= zero;
-        elsif data_i = '1' and current = '0' then
           next_reg <= one;
+        elsif data_i = '1' and current = '0' then
+          next_reg <= zero;
         else
           next_reg <= idle;
         end if;
