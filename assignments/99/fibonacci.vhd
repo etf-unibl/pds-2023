@@ -52,11 +52,12 @@ entity fibonacci is
 end fibonacci;
 
 architecture arch of fibonacci is
-  type t_state is (idle, load, first_op, op);
+  type t_state is (idle, n01, load, first_op, op);
 
   signal state_reg  : t_state;
   signal state_next : t_state;
-  signal count_0    : std_logic;
+  signal done       : std_logic;
+  signal n_is_01    : std_logic;
   signal n_reg      : unsigned(5 downto 0);
   signal n_next     : unsigned(5 downto 0);
   signal r_reg      : unsigned(42 downto 0);
@@ -79,29 +80,31 @@ begin
   end process;
 
   -- control path: next-state
-  process(state_reg, start_i, count_0)
+  process(state_reg, start_i, done, n_is_01)
   begin
     case state_reg is
       when idle =>
         if start_i = '1' then
-          state_next <= load;
+          if n_is_01 = '1' then
+            state_next <= n01;
+          else
+            state_next <= load;
+          end if;
         else
           state_next <= idle;
         end if;
+      when n01 =>
+        state_next <= idle;
       when load =>
-        if count_0 = '1' then
-          state_next <= idle;
-        else
-          state_next <= first_op;
-        end if;
+        state_next <= first_op;
       when first_op =>
-        if count_0 = '1' then
+        if done = '1' then
           state_next <= idle;
         else
           state_next <= op;
         end if;
       when op =>
-        if count_0 = '1' then
+        if done = '1' then
           state_next <= idle;
         else
           state_next <= op;
@@ -128,7 +131,7 @@ begin
   end process;
 
   -- data path: routing multipexer
-  process(state_reg, prev1_reg, n_reg, r_reg, prev2_reg, n_i, res_out, sub_out, start_i)
+  process(state_reg, prev1_reg, prev2_reg, n_reg, r_reg, n_i, res_out, sub_out, start_i)
   begin
     case state_reg is
       when idle =>
@@ -140,21 +143,21 @@ begin
         else
           r_next <= r_reg;
         end if;
+      when n01 =>
+        prev1_next <= prev1_reg;
+        prev2_next <= prev2_reg;
+        n_next     <= n_reg;
+        r_next     <= (others => '0');
       when load =>
-        prev1_next <= "0000000000000000000000000000000000000000001";
+        prev1_next <= (0 => '1', others => '0');
         prev2_next <= (others => '0');
-        if n_i = "000000" then
-          n_next <= (others => '0');
-          r_next <= (others => '0');
-        else
-          n_next <= unsigned(n_i) - 1;
-          r_next <= "0000000000000000000000000000000000000000001";
-        end if;
+        n_next     <= unsigned(n_i) - 1;
+        r_next     <= (0 => '1', others => '0');
       when first_op =>
-        prev1_next <= "0000000000000000000000000000000000000000001";
-        prev2_next <= "0000000000000000000000000000000000000000001";
+        prev1_next <= (0 => '1', others => '0');
+        prev2_next <= (0 => '1', others => '0');
         n_next     <= sub_out;
-        r_next     <= "0000000000000000000000000000000000000000001";
+        r_next     <= (0 => '1', others => '0');
       when op =>
         prev2_next <= prev1_reg;
         prev1_next <= r_reg;
@@ -167,7 +170,8 @@ begin
   res_out <= prev1_next + prev2_next;
   sub_out <= n_reg - 1;
   -- data path: status
-  count_0 <= '1' when n_next = "000000" else '0';
+  n_is_01 <= '1' when n_i = "000000" or n_i = "000001" else '0';
+  done    <= '1' when n_next = "000001" else '0';
   -- data path: output
   r_o <= std_logic_vector(r_reg);
 end arch;
