@@ -89,7 +89,11 @@ begin
           state_next <= idle;
         end if;
       when load =>
-        state_next <= first_op;
+        if count_0 = '1' then
+          state_next <= idle;
+        else
+          state_next <= first_op;
+        end if;
       when first_op =>
         if count_0 = '1' then
           state_next <= idle;
@@ -124,19 +128,28 @@ begin
   end process;
 
   -- data path: routing multipexer
-  process(state_reg, prev1_reg, n_reg, r_reg, prev2_reg, n_i, res_out, sub_out)
+  process(state_reg, prev1_reg, n_reg, r_reg, prev2_reg, n_i, res_out, sub_out, start_i)
   begin
     case state_reg is
       when idle =>
         prev1_next <= prev1_reg;
         prev2_next <= prev2_reg;
         n_next     <= n_reg;
-        r_next     <= r_reg;
+        if start_i = '1' then
+          r_next <= (others => '0');
+        else
+          r_next <= r_reg;
+        end if;
       when load =>
         prev1_next <= "0000000000000000000000000000000000000000001";
         prev2_next <= (others => '0');
-        n_next     <= unsigned(n_i) - 1;
-        r_next     <= "0000000000000000000000000000000000000000001";
+        if n_i = "000000" then
+          n_next <= (others => '0');
+          r_next <= (others => '0');
+        else
+          n_next <= unsigned(n_i) - 1;
+          r_next <= "0000000000000000000000000000000000000000001";
+        end if;
       when first_op =>
         prev1_next <= "0000000000000000000000000000000000000000001";
         prev2_next <= "0000000000000000000000000000000000000000001";
