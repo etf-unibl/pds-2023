@@ -8,7 +8,7 @@
 --
 -- description:
 --
---   This file implements a simple PREAMBLE logic.
+--   This file implements a simple PREAMBLE GENERATOR logic.
 --
 -----------------------------------------------------------------------------
 -- Copyright (c) 2023 Faculty of Electrical Engineering
@@ -84,6 +84,7 @@ begin
           count := 0;
         else
           state_next <= idle;
+          count := 0;
         end if;
       when zero =>
         if start_i = '1' then
@@ -91,6 +92,7 @@ begin
           count := 0;
         else
           state_next <= one;
+          count := count + 1;
         end if;
       when one =>
         if start_i = '1' then
@@ -98,6 +100,7 @@ begin
           count := 0;
         else
           state_next <= zero;
+          count := count + 1;
         end if;
     end case;
 
@@ -105,10 +108,6 @@ begin
       state_next <= idle;
       count := 0;
     end if;
-    if state_next /= idle then
-      count := count + 1;
-    end if;
-
   end process;
 
   -- look-ahead output
@@ -117,6 +116,5 @@ begin
 
   -- output
   data_o <= data_buff_reg;
-
 
 end arch;
