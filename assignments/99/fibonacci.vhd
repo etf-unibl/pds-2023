@@ -36,23 +36,49 @@
 -- OTHER DEALINGS IN THE SOFTWARE
 -----------------------------------------------------------------------------
 
+-------------------------------------------------------
+--! @file fibonacci.vhd
+--! @brief Fibonacci sequence generator circuit
+-------------------------------------------------------
+
+--! Use standard library
 library ieee;
+--! Use logic elements
 use ieee.std_logic_1164.all;
+--! Use numeric types and conversions
 use ieee.numeric_std.all;
+
+--! @brief Fibonacci sequence generator entity description
+--! Entity is responsible for creating fibonacci sequence numbers using RT methodology.
+--! It takes a clock signal, a reset signal, a start signal, and the sequence lenght parameter.
+--! It outputs the last number for desired length and a ready flag to indicate completion.
+
+--! @details Circiut starts generating when the start signal is set.
+
+--! @structure
+--! The entity has the following ports:
+--! `clk_i` is the clock input, used to synchronize the circuit.
+--! `rst_i` is the reset input, which resets the state machine and other signals when asserted.
+--! `start_i` is a signal that starts fibonacci number generation.
+--! `n_i` is the input which determines sequence length.
+--! `y_o` is the output representing the last fibonacci number for desired length.
 
 entity fibonacci is
   port(
-    clk_i   : in  std_logic;
-    rst_i   : in  std_logic;
-    start_i : in  std_logic;
-    n_i     : in  std_logic_vector(5 downto 0);
-    r_o     : out std_logic_vector(42 downto 0);
-    ready_o : out std_logic
-);
+    clk_i   : in  std_logic; --! Clock signal input
+    rst_i   : in  std_logic; --! Asynchronous reset signal input
+    start_i : in  std_logic; --! Start signal input
+    n_i     : in  std_logic_vector(5 downto 0); --! Sequence length input vector
+    r_o     : out std_logic_vector(42 downto 0); --! Last generated number output
+    ready_o : out std_logic --! Ready flag output
+  );
 end fibonacci;
 
+--! @brief Architecture definition of the fibonacci sequence generator
+--! @details Architecture implemented using RT methodology with control and data paths
+--! @details State machine has 4 states: idle, n01 (n_i is 0 or 1), load and op (operating)
 architecture arch of fibonacci is
-  type t_state is (idle, n01, load, first_op, op);
+  type t_state is (idle, n01, load, op);
 
   signal state_reg  : t_state;
   signal state_next : t_state;
@@ -62,10 +88,8 @@ architecture arch of fibonacci is
   signal n_next     : unsigned(5 downto 0);
   signal r_reg      : unsigned(42 downto 0);
   signal r_next     : unsigned(42 downto 0);
-  signal prev1_reg  : unsigned(42 downto 0);
-  signal prev1_next : unsigned(42 downto 0);
-  signal prev2_reg  : unsigned(42 downto 0);
-  signal prev2_next : unsigned(42 downto 0);
+  signal prev_reg   : unsigned(42 downto 0);
+  signal prev_next  : unsigned(42 downto 0);
   signal res_out    : unsigned(42 downto 0);
   signal sub_out    : unsigned(5 downto 0);
 begin
@@ -96,13 +120,7 @@ begin
       when n01 =>
         state_next <= idle;
       when load =>
-        state_next <= first_op;
-      when first_op =>
-        if done = '1' then
-          state_next <= idle;
-        else
-          state_next <= op;
-        end if;
+        state_next <= op;
       when op =>
         if done = '1' then
           state_next <= idle;
@@ -118,56 +136,45 @@ begin
   process(clk_i, rst_i)
   begin
     if rst_i = '1' then
-      prev1_reg <= (others => '0');
-      prev2_reg <= (others => '0');
+      prev_reg <= (others => '0');
       n_reg     <= (others => '0');
       r_reg     <= (others => '0');
     elsif rising_edge(clk_i) then
-      prev1_reg <= prev1_next;
-      prev2_reg <= prev2_next;
-      n_reg     <= n_next;
-      r_reg     <= r_next;
+      prev_reg <= prev_next;
+      n_reg    <= n_next;
+      r_reg    <= r_next;
     end if;
   end process;
 
   -- data path: routing multipexer
-  process(state_reg, prev1_reg, prev2_reg, n_reg, r_reg, n_i, res_out, sub_out, start_i)
+  process(state_reg, prev_reg, n_reg, r_reg, n_i, res_out, sub_out, start_i)
   begin
     case state_reg is
       when idle =>
-        prev1_next <= prev1_reg;
-        prev2_next <= prev2_reg;
-        n_next     <= n_reg;
+        prev_next <= prev_reg;
+        n_next    <= n_reg;
         if start_i = '1' then
           r_next <= (others => '0');
         else
           r_next <= r_reg;
         end if;
       when n01 =>
-        prev1_next <= prev1_reg;
-        prev2_next <= prev2_reg;
-        n_next     <= n_reg;
-        r_next     <= (others => '0');
+        prev_next <= prev_reg;
+        n_next    <= n_reg;
+        r_next    <= (others => '0');
       when load =>
-        prev1_next <= (0 => '1', others => '0');
-        prev2_next <= (others => '0');
-        n_next     <= unsigned(n_i) - 1;
-        r_next     <= (0 => '1', others => '0');
-      when first_op =>
-        prev1_next <= (0 => '1', others => '0');
-        prev2_next <= (0 => '1', others => '0');
-        n_next     <= sub_out;
-        r_next     <= (0 => '1', others => '0');
+        prev_next <= (others => '0');
+        n_next    <= unsigned(n_i) - 1;
+        r_next    <= (0 => '1', others => '0');
       when op =>
-        prev2_next <= prev1_reg;
-        prev1_next <= r_reg;
-        n_next     <= sub_out;
-        r_next     <= res_out;
+        prev_next <= r_reg;
+        n_next    <= sub_out;
+        r_next    <= res_out;
     end case;
   end process;
 
   -- data path: functional units
-  res_out <= prev1_next + prev2_next;
+  res_out <= prev_reg + r_reg;
   sub_out <= n_reg - 1;
   -- data path: status
   n_is_01 <= '1' when n_i = "000000" or n_i = "000001" else '0';
