@@ -35,86 +35,88 @@
 -- ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 -- OTHER DEALINGS IN THE SOFTWARE
 -----------------------------------------------------------------------------
+--! Use standard logic library
 library ieee;
 use ieee.std_logic_1164.all;
 
+--! @brief Entity for the preamble generator
 entity preamble_generator is
-  port (
-  clk_i   : in  std_logic;
-  rst_i   : in  std_logic;
-  start_i : in  std_logic;
-  data_o  : out std_logic
-);
+    port (
+        clk_i   : in  std_logic;   --! Clock input
+        rst_i   : in  std_logic;   --! Reset input
+        start_i : in  std_logic;   --! Start input
+        data_o  : out std_logic    --! Output data
+    );
 end preamble_generator;
 
+--! @brief Architecture defining the preamble generator
 architecture arch of preamble_generator is
-  type t_state_type is (idle, zero, one);
-  signal state_reg, state_next : t_state_type;
-  signal data_next, data_buff_reg : std_logic;
+    type t_state_type is (idle, zero, one);   --! State type definition
+    signal state_reg, state_next : t_state_type;   --! State signals
+    signal data_next, data_buff_reg : std_logic;   --! Data signals
 begin
 
-  -- state register
-  process(clk_i, rst_i)
-  begin
-    if rst_i = '1' then
-      state_reg <= idle;
-    elsif rising_edge(clk_i) then
-      state_reg <= state_next;
-    end if;
-  end process;
-
-  -- output buffer
-  process(clk_i, rst_i)
-  begin
-    if rst_i = '1' then
-      data_buff_reg <= '0';
-    elsif rising_edge(clk_i) then
-      data_buff_reg <= data_next;
-    end if;
-  end process;
-
-  -- next-state logic
-  process(state_reg, start_i)
-    variable count : natural range 0 to 8 := 0;
-  begin
-    case state_reg is
-      when idle =>
-        if start_i = '1' then
-          state_next <= zero;
-          count := 0;
-        else
-          state_next <= idle;
-          count := 0;
+    --! @brief Process to handle the state register
+    process(clk_i, rst_i)
+    begin
+        if rst_i = '1' then
+            state_reg <= idle;   --! Reset state to idle
+        elsif rising_edge(clk_i) then
+            state_reg <= state_next;   --! Update state based on next state
         end if;
-      when zero =>
-        if start_i = '1' then
-          state_next <= zero;
-          count := 0;
-        else
-          state_next <= one;
-          count := count + 1;
+    end process;
+
+    --! @brief Process for the output buffer
+    process(clk_i, rst_i)
+    begin
+        if rst_i = '1' then
+            data_buff_reg <= '0';   --! Reset data buffer
+        elsif rising_edge(clk_i) then
+            data_buff_reg <= data_next;   --! Update data buffer based on next data
         end if;
-      when one =>
-        if start_i = '1' then
-          state_next <= zero;
-          count := 0;
-        else
-          state_next <= zero;
-          count := count + 1;
+    end process;
+
+    --! @brief Process for the next-state logic
+    process(state_reg, start_i, data_buff_reg)
+        variable count : natural range 0 to 8 := 0;   --! Variable for counting
+    begin
+        case state_reg is
+            when idle =>
+                if start_i = '1' then
+                    state_next <= zero;   --! Move to zero state on start signal
+                    count := 0;   --! Reset count
+                else
+                    state_next <= idle;   --! Stay idle
+                    count := 0;   --! Reset count
+                end if;
+            when zero =>
+                if start_i = '1' then
+                    state_next <= zero;   --! Stay at zero state on start signal
+                    count := 0;   --! Reset count
+                else
+                    state_next <= one;   --! Move to one state
+                    count := count + 1;   --! Increment count
+                end if;
+            when one =>
+                if start_i = '1' then
+                    state_next <= zero;   --! Move to zero state on start signal
+                    count := 0;   --! Reset count
+                else
+                    state_next <= zero;   --! Move back to zero state
+                    count := count + 1;   --! Increment count
+                end if;
+        end case;
+
+        if count = 8 then
+            state_next <= idle;   --! Move to idle state after 8 counts
+            count := 0;   --! Reset count
         end if;
-    end case;
+    end process;
 
-    if count = 8 then
-      state_next <= idle;
-      count := 0;
-    end if;
-  end process;
+    --! @brief Look-ahead output
+    data_next <= '1' when state_next = one else '0';   --! Generate data lookahead
 
-  -- look-ahead output
-  data_next <= '1' when state_next = one else
-               '0';
-
-  -- output
-  data_o <= data_buff_reg;
+    --! @brief Output assignment
+    data_o <= data_buff_reg;   --! Output buffered data
 
 end arch;
