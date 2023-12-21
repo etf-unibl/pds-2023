@@ -36,34 +36,45 @@
 -- OTHER DEALINGS IN THE SOFTWARE
 -----------------------------------------------------------------------------
 
+--! Use standard library
 library ieee;
+--! Use logic elements
 use ieee.std_logic_1164.all;
+--! Use integer types
 use ieee.numeric_std.all;
 
+--! Sequential multiplier design element. The main task of this element is to
+--! take two 8-bit inputs and multiply them. Product is given at the one
+--! output port.
 entity sequential_multiplier is
   port(
-    clk_i   : in  std_logic;
-    rst_i   : in  std_logic;
-    start_i : in  std_logic;
-    a_i     : in  std_logic_vector(7 downto 0);
-    b_i     : in  std_logic_vector(7 downto 0);
-    c_o     : out std_logic_vector(15 downto 0);
-    ready_o : out std_logic
+    clk_i   : in  std_logic;                     --! Standard clock pulse input
+    rst_i   : in  std_logic;                     --! Asynchronous reset input
+    start_i : in  std_logic;                     --! Input which sets circut into operation
+    a_i     : in  std_logic_vector(7 downto 0);  --! Input 8-bit operand
+    b_i     : in  std_logic_vector(7 downto 0);  --! Input 8-bit operand
+    c_o     : out std_logic_vector(15 downto 0); --! Output which has the result of multiply operation
+    ready_o : out std_logic                      --! One bit output that signals when is possible to take input
    );
 end sequential_multiplier;
 
+--! @brief Architecture with functional definition of sequential multiplier.
+--! @details Architecture designed using Register Transfer methodology of design with multiplying performed as
+--!  series of adding. Design has two main parts. One is FSM part that serves as a control unit,
+--!  based on the current state FSM is in, the circuit has to do certain operation.
+--!  Other one is the part with regular logic, that does multiplying by adding multiple times.
 architecture arch of sequential_multiplier is
   constant c_WIDTH : integer := 8;
   type t_state_type is (idle, ab0, load, op);
-  signal state_reg, state_next : state_type;
+  signal state_reg, state_next : t_state_type;
   signal a_is_0, b_is_0, count_is_0 : std_logic;
-  signal a_reg, a_next : unsigned(WIDTH-1 downto 0);
-  signal n_reg, n_next : unsigned(WIDTH-1 downto 0);
-  signal c_reg, c_next : unsigned(2*WIDTH-1 downto 0);
-  signal adder_out : unsigned(2*WIDTH-1 downto 0);
-  signal sub_out : unsigned(WIDTH-1 downto 0);
+  signal a_reg, a_next : unsigned(c_WIDTH-1 downto 0);
+  signal n_reg, n_next : unsigned(c_WIDTH-1 downto 0);
+  signal c_reg, c_next : unsigned(2*c_WIDTH-1 downto 0);
+  signal adder_out : unsigned(2*c_WIDTH-1 downto 0);
+  signal sub_out : unsigned(c_WIDTH-1 downto 0);
 begin
-  -- control path: state register
+  --! control path: state register
   process(clk_i, rst_i)
   begin
     if rst_i = '1' then
@@ -72,7 +83,7 @@ begin
       state_reg <= state_next;
     end if;
   end process;
-  -- control path : next_state
+  --! control path : next_state
   process(state_reg, start_i, a_is_0, b_is_0, count_is_0)
   begin
     case state_reg is
@@ -104,11 +115,11 @@ begin
     end case;
   end process;
 
-  -- control path : output logic
+  --! control path : output logic
   ready_o <= '1' when state_reg <= idle else
              '1' when state_reg <= op and start_i = '1' and count_is_0 = '1' else
                 '0';
-  -- data path : data registers
+  --! data path : data registers
   process(clk_i, rst_i)
   begin
     if rst_i = '1' then
@@ -122,7 +133,7 @@ begin
     end if;
   end process;
 
-  -- data path : routing multiplexer
+  --! data path : routing multiplexer
   process(state_reg, a_reg, n_reg, c_reg, a_i, b_i,
             adder_out, sub_out)
   begin
@@ -145,13 +156,13 @@ begin
         c_next <= adder_out;
     end case;
   end process;
-  -- data path : functional units
+  --! data path : functional units
   adder_out <= ("00000000" & a_reg) + c_reg;
   sub_out <= n_reg - 1;
-  -- data path : status
+  --! data path : status
   a_is_0 <= '1' when a_i = "00000000" else '0';
   b_is_0 <= '1' when b_i = "00000000" else '0';
   count_is_0 <= '1' when n_next = "00000000" else '0';
-  -- data path : output
+  --! data path : output
   c_o <= std_logic_vector(c_reg);
 end arch;
