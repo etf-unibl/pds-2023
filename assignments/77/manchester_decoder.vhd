@@ -69,63 +69,64 @@ end manchester_decoder;
 --! The last process is for the state register;
 architecture arch of manchester_decoder is
   type t_state is
-    (idle, one, zero);
+    (idle, a1, a0, b1, b0);
   signal state_reg : t_state;
   signal next_reg : t_state := idle;
-  signal current : std_logic := '0';
 begin
   -- sequential part
   process(clk_i)
   begin
     if rising_edge(clk_i) then
       state_reg <= next_reg;
-		current <= data_i;
     end if;
   end process;
   -- next state logic
-  process(clk_i, state_reg)
+  process(data_i, clk_i, state_reg)
   begin
-    case state_reg is
-      when idle => 
-        if data_i = '1' and current  = '0' then
-          next_reg <= one;
-        elsif data_i = '0' and current = '1' then
-          next_reg <= zero;
-        else
-          next_reg <= idle;
-        end if;
-      when one => 
-        if data_i = '0' and current = '1' then
-          next_reg <= zero;
-        elsif data_i = '1' and current = '0' then
-          next_reg <= one;
-        else
-          next_reg <= idle;
-        end if;
-      when zero =>
-        if data_i = '0' and current = '1' then
-          next_reg <= zero;
-        elsif data_i = '1' and current = '0' then
-          next_reg <= one;
-        else
-          next_reg <= idle;
-        end if;
+    if rising_edge(clk_i) then
+      case state_reg is
+        when idle => 
+          if  data_i = '0' then
+            next_reg <= a0;
+          else
+            next_reg <= a1;
+          end if;
+        when a0 =>
+          if data_i = '0' then
+            next_reg <= idle;
+          else
+            next_reg <= b1;
+          end if;
+        when a1 =>
+          if data_i = '0' then
+            next_reg <= b0;
+          else
+            next_reg <= idle;
+          end if;
+        when others =>
+          if  data_i = '0' then
+            next_reg <= a0;
+          else
+            next_reg <= a1;
+          end if;
       end case;
+    end if;
   end process;
   -- output logic
   process(state_reg)
   begin
-    data_o <= '0';
-    valid_o <= '0';
     case state_reg is
       when idle =>
-      when one =>
+        data_o <= '0';
+        valid_o <= '0';
+      when a0 =>
+      when a1 =>
+      when b1 =>
         data_o <= '1';
         valid_o <= '1';
-      when zero =>
+      when b0 =>
         data_o <= '0';
         valid_o <= '1';
     end case;
   end process;
 end arch;
-
