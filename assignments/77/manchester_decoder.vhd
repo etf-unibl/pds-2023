@@ -83,34 +83,32 @@ begin
   -- next state logic
   process(data_i, clk_i, state_reg)
   begin
-    if rising_edge(clk_i) then
-      case state_reg is
-        when idle => 
-          if  data_i = '0' then
-            next_reg <= a0;
-          else
-            next_reg <= a1;
-          end if;
-        when a0 =>
-          if data_i = '0' then
-            next_reg <= idle;
-          else
-            next_reg <= b1;
-          end if;
-        when a1 =>
-          if data_i = '0' then
-            next_reg <= b0;
-          else
-            next_reg <= idle;
-          end if;
-        when others =>
-          if  data_i = '0' then
-            next_reg <= a0;
-          else
-            next_reg <= a1;
-          end if;
-      end case;
-    end if;
+    case state_reg is
+      when idle => 
+        if  data_i = '0' then
+          next_reg <= a0;
+        else
+          next_reg <= a1;
+        end if;
+      when a0 =>
+        if data_i = '0' then
+          next_reg <= idle;
+        else
+          next_reg <= b1;
+        end if;
+      when a1 =>
+        if data_i = '0' then
+          next_reg <= b0;
+        else
+          next_reg <= idle;
+        end if;
+      when others =>
+        if  data_i = '0' then
+          next_reg <= a0;
+        else
+          next_reg <= a1;
+        end if;
+    end case;
   end process;
   -- output logic
   process(state_reg)
