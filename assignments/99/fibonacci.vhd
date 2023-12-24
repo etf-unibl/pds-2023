@@ -76,14 +76,14 @@ end fibonacci;
 
 --! @brief Architecture definition of the fibonacci sequence generator
 --! @details Architecture implemented using RT methodology with control and data paths
---! @details State machine has 4 states: idle, n01 (n_i is 0 or 1), load and op (operating)
+--! @details State machine has 4 states: idle, n0 (n_i is 0), load and op (operating)
 architecture arch of fibonacci is
-  type t_state is (idle, n01, load, op);
+  type t_state is (idle, n0, load, op);
 
   signal state_reg  : t_state;
   signal state_next : t_state;
   signal done       : std_logic;
-  signal n_is_01    : std_logic;
+  signal n_is_0     : std_logic;
   signal n_reg      : unsigned(5 downto 0);
   signal n_next     : unsigned(5 downto 0);
   signal r_reg      : unsigned(42 downto 0);
@@ -104,23 +104,27 @@ begin
   end process;
 
   -- control path: next-state
-  process(state_reg, start_i, done, n_is_01)
+  process(state_reg, start_i, done, n_is_0)
   begin
     case state_reg is
       when idle =>
         if start_i = '1' then
-          if n_is_01 = '1' then
-            state_next <= n01;
+          if n_is_0 = '1' then
+            state_next <= n0;
           else
             state_next <= load;
           end if;
         else
           state_next <= idle;
         end if;
-      when n01 =>
+      when n0 =>
         state_next <= idle;
       when load =>
-        state_next <= op;
+        if done = '1' then
+          state_next <= idle;
+        else
+          state_next <= op;
+        end if;
       when op =>
         if done = '1' then
           state_next <= idle;
@@ -158,7 +162,7 @@ begin
         else
           r_next <= r_reg;
         end if;
-      when n01 =>
+      when n0 =>
         prev_next <= prev_reg;
         n_next    <= n_reg;
         r_next    <= (others => '0');
@@ -177,8 +181,8 @@ begin
   res_out <= prev_reg + r_reg;
   sub_out <= n_reg - 1;
   -- data path: status
-  n_is_01 <= '1' when n_i = "000000" or n_i = "000001" else '0';
-  done    <= '1' when n_next = "000001" else '0';
+  n_is_0 <= '1' when n_i = "000000" else '0';
+  done   <= '1' when n_next = "000000" else '0';
   -- data path: output
   r_o <= std_logic_vector(r_reg);
 end arch;
