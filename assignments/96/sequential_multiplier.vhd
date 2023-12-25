@@ -156,7 +156,11 @@ begin
       when op =>
         a_next <= a_reg;
         n_next <= sub_out;
-        c_next <= adder_out;
+        if count_is_0 = '1' then
+          c_next <= "0000000000000000";
+        else
+          c_next <= adder_out;
+        end if;
     end case;
   end process;
   --! data path : functional units
@@ -165,7 +169,7 @@ begin
   --! data path : status
   a_is_0 <= '1' when a_i = "00000000" else '0';
   b_is_0 <= '1' when b_i = "00000000" else '0';
-  count_is_0 <= '1' when n_next = "00000000" else '0';
+  count_is_0 <= '1' when n_reg = "00000000" else '0';
   --! data path : output
   c_o <= std_logic_vector(c_reg);
 end arch;
