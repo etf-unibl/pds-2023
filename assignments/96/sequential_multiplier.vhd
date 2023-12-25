@@ -89,7 +89,6 @@ begin
     case state_reg is
       when idle =>
         if start_i = '1' then
-
           if a_is_0 = '1' or b_is_0 = '1' then
             state_next <= ab0;
           else
@@ -103,11 +102,15 @@ begin
       when load =>
         state_next <= op;
       when op =>
-        if count_is_0 = '1' and start_i = '1' then
-          if a_is_0 = '1' or b_is_0 = '1' then
-            state_next <= ab0;
+        if count_is_0 = '1' then
+          if start_i = '1' then
+            if a_is_0 = '1' or b_is_0 = '1' then
+              state_next <= ab0;
+            else
+              state_next <= load;
+            end if;
           else
-            state_next <= load;
+            state_next <= idle;
           end if;
         else
           state_next <= op;
@@ -116,9 +119,9 @@ begin
   end process;
 
   --! control path : output logic
-  ready_o <= '1' when state_reg <= idle else
+  ready_o <= '1' when state_reg <= idle and start_i = '1' else
              '1' when state_reg <= op and start_i = '1' and count_is_0 = '1' else
-                '0';
+             '0';
   --! data path : data registers
   process(clk_i, rst_i)
   begin
