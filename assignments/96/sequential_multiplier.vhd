@@ -138,7 +138,7 @@ begin
 
   --! data path : routing multiplexer
   process(state_reg, a_reg, n_reg, c_reg, a_i, b_i,
-            adder_out, sub_out)
+            adder_out, sub_out, count_is_0)
   begin
     case state_reg is
       when idle =>
@@ -157,7 +157,7 @@ begin
         a_next <= a_reg;
         n_next <= sub_out;
         if count_is_0 = '1' then
-          c_next <= "0000000000000000";
+          a_next <= "00000000";
         else
           c_next <= adder_out;
         end if;
