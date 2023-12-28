@@ -71,7 +71,6 @@ architecture arch of sequential_multiplier is
   signal a_reg, a_next : unsigned(c_WIDTH-1 downto 0);
   signal n_reg, n_next : unsigned(c_WIDTH-1 downto 0);
   signal c_reg, c_next : unsigned(2*c_WIDTH-1 downto 0);
-  signal start_sync : std_logic;
   signal adder_out : unsigned(2*c_WIDTH-1 downto 0);
   signal sub_out : unsigned(c_WIDTH-1 downto 0);
 begin
@@ -85,11 +84,11 @@ begin
     end if;
   end process;
   --! control path : next_state
-  process(state_reg, start_sync, a_is_0, b_is_0, count_is_0)
+  process(state_reg, start_i, a_is_0, b_is_0, count_is_0)
   begin
     case state_reg is
       when idle =>
-        if start_sync = '1' then
+        if start_i = '1' then
           if a_is_0 = '1' or b_is_0 = '1' then
             state_next <= ab0;
           else
@@ -104,7 +103,7 @@ begin
         state_next <= op;
       when op =>
         if count_is_0 = '1' then
-          if start_sync = '1' then
+          if start_i = '1' then
             if a_is_0 = '1' or b_is_0 = '1' then
               state_next <= ab0;
             else
@@ -120,8 +119,8 @@ begin
   end process;
 
   --! control path : output logic
-  ready_o <= '1' when state_reg <= idle and start_sync = '1' else
-             '1' when state_reg <= op and start_sync = '1' and count_is_0 = '1' else
+  ready_o <= '1' when state_reg = idle else
+             '1' when state_reg = op and start_i = '1' and count_is_0 = '1' else
              '0';
   --! data path : data registers
   process(clk_i, rst_i)
@@ -130,18 +129,16 @@ begin
       a_reg <= (others => '0');
       n_reg <= (others => '0');
       c_reg <= (others => '0');
-      start_sync <= '0';
     elsif rising_edge(clk_i) then
       a_reg <= a_next;
       n_reg <= n_next;
       c_reg <= c_next;
-      start_sync <= start_i;
     end if;
   end process;
 
   --! data path : routing multiplexer
   process(state_reg, a_reg, n_reg, c_reg, a_i, b_i,
-            adder_out, sub_out, count_is_0)
+            adder_out, sub_out)
   begin
     case state_reg is
       when idle =>
@@ -159,11 +156,7 @@ begin
       when op =>
         a_next <= a_reg;
         n_next <= sub_out;
-        if count_is_0 = '1' then
-          a_next <= "00000000";
-        else
-          c_next <= adder_out;
-        end if;
+        c_next <= adder_out;
     end case;
   end process;
   --! data path : functional units
@@ -172,7 +165,7 @@ begin
   --! data path : status
   a_is_0 <= '1' when a_i = "00000000" else '0';
   b_is_0 <= '1' when b_i = "00000000" else '0';
-  count_is_0 <= '1' when n_reg = "00000000" else '0';
+  count_is_0 <= '1' when n_next = "00000000" else '0';
   --! data path : output
   c_o <= std_logic_vector(c_reg);
 end arch;
