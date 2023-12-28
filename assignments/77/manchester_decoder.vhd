@@ -76,7 +76,7 @@ begin
   -- sequential part
   process(clk_i)
   begin
-    if rising_edge(clk_i) then
+    if falling_edge(clk_i) then
       state_reg <= next_reg;
     end if;
   end process;
