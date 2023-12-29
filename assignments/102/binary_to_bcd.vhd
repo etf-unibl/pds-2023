@@ -129,10 +129,10 @@ begin
       when idle =>
         if start_i = '1' then
           data_next <= unsigned(binary_i);
-          bcd1_next <= (others => '0');
-          bcd2_next <= (others => '0');
-          bcd3_next <= (others => '0');
-          bcd4_next <= (others => '0');
+          bcd1_next <= bcd1_reg;
+          bcd2_next <= bcd2_reg;
+          bcd3_next <= bcd3_reg;
+          bcd4_next <= bcd4_reg;
         else
           data_next <= data_reg; --! zadrzavanje starog stanja
           bcd1_next <= bcd1_reg; --! za sve registre
@@ -147,11 +147,11 @@ begin
         bcd3_next <= bcd3_temp;
         bcd4_next <= bcd4_temp;
       when op =>
-        data_next <= (others => '0');
-        bcd1_next <= (others => '0');
-        bcd2_next <= (others => '0');
-        bcd3_next <= (others => '0');
-        bcd4_next <= (others => '0');
+        data_next <= data_reg;
+        bcd1_next <= bcd1_reg;
+        bcd2_next <= bcd2_reg;
+        bcd3_next <= bcd3_reg;
+        bcd4_next <= bcd4_reg;
     end case;
   end process p4;
 
