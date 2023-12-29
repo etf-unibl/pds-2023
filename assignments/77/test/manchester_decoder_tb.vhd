@@ -54,96 +54,76 @@ BEGIN
 	data_o => data_o,
 	valid_o => valid_o
 	);
-                                        
+
+process
+begin
+  for i in 0 to 20 loop
+    clk_i <= '1';
+	 wait for 5 ns;
+	 clk_i <= '0';
+	 wait for 5 ns;
+  end loop;
+  wait;
+end process;
+	
 always : PROCESS                                              
 -- optional sensitivity list                                  
 -- (        )                                                 
 -- variable declarations                                      
 BEGIN                                                         
         -- code executes for every event on sensitivity list  
-  clk_i <= '0';
   data_i <= '0';
-  wait for 5 ns;
-  clk_i <= '1';
-  wait for 5 ns;
-  clk_i <= '0';
-  wait for 5 ns;
-  assert(data_o = '0' and valid_o = '0') report "Error: idle state; Expected: data_o = 0, valid_o = 0; Actual: data_o: " & std_logic'image(data_o) & ", valid_o : " & std_logic'image(valid_o) severity failure;
+  wait for 20 ns;
+  assert(data_o = '0' and valid_o = '0') report "Error: idle state; Expected: data_o = 0, valid_o = 0; Actual: data_o: " & std_logic'image(data_o) & ", valid_o : " & std_logic'image(valid_o) severity error;
   report "Assertion successful: idle state.";
   data_i <= '0';
-  clk_i <= '1';
-  wait for 5 ns;
+  wait for 10 ns;
   data_i <= '1';
-  clk_i <= '0';
-  wait for 5 ns;
-  data_i <= '0';
-  clk_i <= '1';
-  wait for 1 ns;
-  assert(data_o = '1' and valid_o = '1') report "Error: transition from idle state to state one; Expected: data_o = 1, valid_o = 1; Actual: data_o: " & std_logic'image(data_o) & ", valid_o : " & std_logic'image(valid_o) severity failure;
+  wait for 10 ns;
+  assert(data_o = '1' and valid_o = '1') report "Error: transition from idle state to state one; Expected: data_o = 1, valid_o = 1; Actual: data_o: " & std_logic'image(data_o) & ", valid_o : " & std_logic'image(valid_o) severity error;
   report "Assertion successful: transition from idle state to state one.";
-  wait for 4 ns;
+  data_i <= '0';
+  wait for 10 ns;
   data_i <= '1';
-  clk_i <= '0';
-  wait for 5 ns;
-  data_i <= '1';
-  clk_i <= '1';
-  wait for 1 ns;
-  assert(data_o = '1' and valid_o = '1') report "Error: transition from state one to state one; Expected: data_o = 1, valid_o = 1; Actual: data_o: " & std_logic'image(data_o) & ", valid_o : " & std_logic'image(valid_o) severity failure;
+  wait for 10 ns;
+  assert(data_o = '1' and valid_o = '1') report "Error: transition from state one to state one; Expected: data_o = 1, valid_o = 1; Actual: data_o: " & std_logic'image(data_o) & ", valid_o : " & std_logic'image(valid_o) severity error;
   report "Assertion successful: transition from state one to state one.";
-  wait for 4 ns;
-  data_i <= '0';
-  clk_i <= '0';
-  wait for 5 ns;
   data_i <= '1';
-  clk_i <= '1';
-  wait for 1 ns;
-  assert(data_o = '0' and valid_o = '1') report "Error: transition from state one to state zero; Expected: data_o = 0, valid_o = 1; Actual: data_o: " & std_logic'image(data_o) & ", valid_o : " & std_logic'image(valid_o) severity failure;
+  wait for 10 ns;
+  data_i <= '0';
+  wait for 10 ns;
+  assert(data_o = '0' and valid_o = '1') report "Error: transition from state one to state zero; Expected: data_o = 0, valid_o = 1; Actual: data_o: " & std_logic'image(data_o) & ", valid_o : " & std_logic'image(valid_o) severity error;
   report "Assertion successful: transition from state one to state zero.";
-  wait for 4 ns;
+  data_i <= '1';
+  wait for 10 ns;
   data_i <= '0';
-  clk_i <= '0';
-  wait for 5 ns;
-  data_i <= '0';
-  clk_i <= '1';
-  wait for 1 ns;
-  assert(data_o = '0' and valid_o = '1') report "Error: transition from state zero to state zero; Expected: data_o = 0, valid_o = 1; Actual: data_o: " & std_logic'image(data_o) & ", valid_o : " & std_logic'image(valid_o) severity failure;
+  wait for 10 ns;
+  assert(data_o = '0' and valid_o = '1') report "Error: transition from state zero to state zero; Expected: data_o = 0, valid_o = 1; Actual: data_o: " & std_logic'image(data_o) & ", valid_o : " & std_logic'image(valid_o) severity error;
   report "Assertion successful: transition from state zero to state zero.";
-  wait for 4 ns;
-  data_i <= '1';
-  clk_i <= '0';
-  wait for 5 ns;
   data_i <= '0';
-  clk_i <= '1';
-  wait for 1 ns;
-  assert(data_o = '1' and valid_o = '1') report "Error: transition from state zero to state one; Expected: data_o = 1, valid_o = 1; Actual: data_o: " & std_logic'image(data_o) & ", valid_o : " & std_logic'image(valid_o) severity failure;
+  wait for 10 ns;
+  data_i <= '1';
+  wait for 10 ns;
+  assert(data_o = '1' and valid_o = '1') report "Error: transition from state zero to state one; Expected: data_o = 1, valid_o = 1; Actual: data_o: " & std_logic'image(data_o) & ", valid_o : " & std_logic'image(valid_o) severity error;
   report "Assertion successful: transition from state zero to state one.";
-  wait for 4 ns;
   data_i <= '0';
-  clk_i <= '0';
-  wait for 5 ns;
-  data_i <= '1';
-  clk_i <= '1';
-  wait for 1 ns;
-  assert(data_o = '0' and valid_o = '0') report "Error: transition from state one to idle state; Expected: data_o = 0, valid_o = 0; Actual: data_o: " & std_logic'image(data_o) & ", valid_o : " & std_logic'image(valid_o) severity failure;
+  wait for 20 ns;
+  assert(data_o = '0' and valid_o = '0') report "Error: transition from state one to idle state; Expected: data_o = 0, valid_o = 0; Actual: data_o: " & std_logic'image(data_o) & ", valid_o : " & std_logic'image(valid_o) severity error;
   report "Assertion successful: transition from state one to idle state.";
-  wait for 4 ns;
+  data_i <= '1';
+  wait for 10 ns;
   data_i <= '0';
-  clk_i <= '0';
-  wait for 5 ns;
-  data_i <= '0';
-  clk_i <= '1';
-  wait for 1 ns;
-  assert(data_o = '0' and valid_o = '1') report "Error: transition from idle state to state zero; Expected: data_o = 0, valid_o = 1; Actual: data_o: " & std_logic'image(data_o) & ", valid_o : " & std_logic'image(valid_o) severity failure;
+  wait for 10 ns;
+  assert(data_o = '0' and valid_o = '1') report "Error: transition from idle state to state zero; Expected: data_o = 0, valid_o = 1; Actual: data_o: " & std_logic'image(data_o) & ", valid_o : " & std_logic'image(valid_o) severity error;
   report "Assertion successful: transition from idle state to state zero.";
-  wait for 4 ns;
-  data_i <= '0';
-  clk_i <= '0';
-  wait for 5 ns;
-  data_i <= '0';
-  clk_i <= '1';
-  wait for 1 ns;
-  assert(data_o = '0' and valid_o = '0') report "Error: transition from state zero to idle state; Expected: data_o = 0, valid_o = 0; Actual: data_o: " & std_logic'image(data_o) & ", valid_o : " & std_logic'image(valid_o) severity failure;
+  data_i <= '1';
+  wait for 10 ns;
+  data_i <= '1';
+  wait for 10 ns;
+  assert(data_o = '0' and valid_o = '0') report "Error: transition from state zero to idle state; Expected: data_o = 0, valid_o = 0; Actual: data_o: " & std_logic'image(data_o) & ", valid_o : " & std_logic'image(valid_o) severity error;
   report "Assertion successful: transition from state zero to idle state.";
+  data_i <= '0';
+  wait for 20 ns;
 WAIT;                                                        
 END PROCESS always;                                          
 END manchester_decoder_arch;
