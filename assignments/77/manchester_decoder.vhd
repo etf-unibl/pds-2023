@@ -71,7 +71,7 @@ architecture arch of manchester_decoder is
   type t_state is
     (idle, a1, a0, b1, b0);
   signal state_reg : t_state;
-  signal next_reg : t_state := a0;
+  signal next_reg : t_state := idle;
 begin
   -- sequential part
   process(clk_i)
