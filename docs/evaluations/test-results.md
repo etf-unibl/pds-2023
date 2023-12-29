@@ -2,14 +2,14 @@
 
 | Student | Bodovi |
 | :------ | :------: |
-| Vidić Luka | |
-| Babić Nikola | |
+| Vidić Luka | 15 |
+| Babić Nikola | 14 |
 | Čiča Danilo | |
 | Ćehić Neira | |
-| Đaković Anja | |
-| Tripić Nemanja | |
-| Radonić Andriana | |
-| Legenović Dajana | |
-| Savković Božana | |
+| Đaković Anja | 12 |
+| Tripić Nemanja | 13 |
+| Radonić Andriana | 4 |
+| Legenović Dajana | 8 |
+| Savković Božana | 7 |
 
-**Napomena:** Maksimalano se može ostvariti 25% ocjene na testu.
+**Napomena:** Maksimalno se može ostvariti 25% ocjene na testu.
