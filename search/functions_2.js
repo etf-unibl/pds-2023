@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['next_5fstate_5flogic_0',['next_state_logic',['../classarbiter_1_1arch.html#abcf1cd3959596669c9a357a2b0b2ee65',1,'arbiter::arch']]]
+  ['mealy_0',['mealy',['../classmem__ctrl_1_1arch.html#a6bbc2b334f60c4efcf17b8e6531be4b3',1,'mem_ctrl::arch']]],
+  ['moore_1',['moore',['../classmem__ctrl_1_1arch.html#a05dc772698100d905f86fd92bdca9b79',1,'mem_ctrl::arch']]]
 ];
