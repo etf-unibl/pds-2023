@@ -122,7 +122,8 @@ begin
   end process p3;
 
   --! data path: routing multipexer
-  p4 : process(state_reg, binary_i)
+  p4 : process(state_reg, binary_i, start_i, data_reg, bcd1_reg, bcd2_reg, bcd3_reg, bcd4_reg,
+  bcd1_temp, bcd2_temp, bcd3_temp, bcd4_temp)
   begin
     case state_reg is
       when idle =>
