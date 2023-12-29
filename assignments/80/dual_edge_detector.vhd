@@ -38,29 +38,28 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-/**
- * @brief Entity for dual_edge_detector module
- */
+--! brief Entity for dual_edge_detector module
 entity dual_edge_detector is
   port (
-    clk_i    : in  std_logic;  /**< Clock input */
-    rst_i    : in  std_logic;  /**< Reset input */
-    strobe_i : in  std_logic;  /**< Strobe input */
-    p_o      : out std_logic   /**< Output signal */
+    clk_i    : in  std_logic;  --! Clock input
+    rst_i    : in  std_logic;  --! Reset input
+    strobe_i : in  std_logic;  --! Strobe input
+    p_o      : out std_logic   --! Output signal
   );
 end dual_edge_detector;
 
-/**
- * @brief Architecture for dual_edge_detector module
- */
+--! brief Architecture for dual_edge_detector module
+--! Implementation using Moore's FSM
+--! Enables detection of a change on the edge of the strobe_i signal
+--! and emits a '1' when that change is detected
+--! Three logic states: zero, one, edge
 architecture arch of dual_edge_detector is
   type t_sm_de_type is(zero, one, edge);
   signal state_reg, state_next : t_sm_de_type;
 
 begin
-  /**
-   * @brief State register process
-   */
+
+  --! brief State register process
   process(clk_i, rst_i)
   begin
     if rst_i = '1' then
@@ -70,9 +69,7 @@ begin
     end if;
   end process;
 
-  /**
-   * @brief Next state logic process
-   */
+   --! brief Next state logic process
   process(state_reg, strobe_i)
   begin
     case state_reg is
@@ -97,9 +94,7 @@ begin
     end case;
   end process;
 
-  /**
-   * @brief Output logic process
-   */
+  --! brief Output logic process
   process(state_next)
   begin
     case state_next is
