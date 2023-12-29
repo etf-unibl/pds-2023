@@ -64,7 +64,7 @@ end mem_ctrl;
 
 --! @brief Architecture definition of the mem_ctrl
 --! @details Realized using FSM metodology with 7 states
---! idle - initial/neutral state 
+--! idle - initial/neutral state
 --! write - one state that represents writing functionality
 --! single_read and multi_read - multiple read states depending on burst_i input selection
 architecture arch of mem_ctrl is

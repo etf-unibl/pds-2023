@@ -50,7 +50,7 @@ use ieee.numeric_std.all;
 entity mem_ctrl_tb is
 end mem_ctrl_tb;
 
---! @brief Architecture definition of the mem_ctrl
+--! @brief Testing functionality correctness of the memory controler design
 architecture arch of mem_ctrl_tb is
   signal clk_in    : std_logic;
   signal rst_in    : std_logic;
@@ -89,7 +89,7 @@ begin
   begin
     rst_in <= '1';
     wait for 5 ns;
-    if(oe_out = '0' and we_out = '0' and we_me_out = '0') then
+    if oe_out = '0' and we_out = '0' and we_me_out = '0' then
       report "OK RESET = 1 -> ALL OUTPUTS = '0' - IN IDLE STATE- " severity note;
     else
       report "ERROR RESET = 1 -> EXPECTED ALL OUTPUTS = '0' -> GOT oe_out = " & std_logic'image(oe_out) &
@@ -102,10 +102,11 @@ begin
     rst_in <= '0';
     clk_in <= '0';
     wait for 5 ns;
-	 if(oe_out = '0' and we_out = '0' and we_me_out = '0') then
+    if oe_out = '0' and we_out = '0' and we_me_out = '0' then
       report "OK RESET = 0 and CLK = 0 -> ALL OUTPUTS = '0'" severity note;
     else
-      report "ERROR RESET = 0 and CLK = 0 -> EXPECTED ALL OUTPUTS = '0' -> GOT oe_out = " & std_logic'image(oe_out) &
+      report "ERROR RESET = 0 and CLK = 0 -> EXPECTED ALL OUTPUTS = '0' -> GOT" &
+      " oe_out = " & std_logic'image(oe_out) &
       " , we_out = " & std_logic'image(we_out) &
       " , we_me_out = " & std_logic'image(we_me_out)
       severity error;
@@ -115,10 +116,11 @@ begin
     mem_in <= '0';
     clk_in <= '1';
     wait for 5 ns;
-	 if(oe_out = '0' and we_out = '0' and we_me_out = '0') then
+    if oe_out = '0' and we_out = '0' and we_me_out = '0' then
       report "OK CLK = 1 and MEM_I = 0 -> ALL OUTPUTS = '0' - IN IDLE STATE- " severity note;
     else
-      report "ERROR CLK = 1 and MEM_I = 0 -> EXPECTED ALL OUTPUTS = '0' -> GOT oe_out = " & std_logic'image(oe_out) &
+      report "ERROR CLK = 1 and MEM_I = 0 -> EXPECTED ALL OUTPUTS = '0' -> GOT" &
+      " oe_out = " & std_logic'image(oe_out) &
       " , we_out = " & std_logic'image(we_out) &
       " , we_me_out = " & std_logic'image(we_me_out)
       severity error;
@@ -131,10 +133,12 @@ begin
     mem_in <= '1';
     rw_in <= '0';
     wait for 5 ns;
-	 if(oe_out = '0' and we_out = '0' and we_me_out = '1') then
-      report "OK CLK = 0 and MEM_I = 1 and RW_I = 0 -> we_me_out = '1' still in IDLE" severity note;
+    if oe_out = '0' and we_out = '0' and we_me_out = '1' then
+      report "OK CLK = 0 and MEM_I = 1 and RW_I = 0 -> we_me_out = '1' still in IDLE"
+      severity note;
     else
-      report "ERROR CLK = 0 and MEM_I = 1 and RW_I = 0 -> EXPECTED we_me_out = '1', others = '0' -> GOT oe_out = " & std_logic'image(oe_out) &
+      report "ERROR CLK = 0 and MEM_I = 1 and RW_I = 0 -> EXPECTED we_me_out = '1', others = '0' -> GOT" &
+      " oe_out = " & std_logic'image(oe_out) &
       " , we_out = " & std_logic'image(we_out) &
       " , we_me_out = " & std_logic'image(we_me_out)
       severity error;
@@ -143,104 +147,115 @@ begin
 
     clk_in <= '1';
     wait for 5 ns;
-    if(oe_out = '0' and we_out = '1' and we_me_out = '0') then
-	   report "OK CLK = 1 and MEM_I = 1 and RW_I = 0 -> we_out = '1' others = '0' -in WRITE STATE-" severity note;
+    if oe_out = '0' and we_out = '1' and we_me_out = '0' then
+      report "OK CLK = 1 and MEM_I = 1 and RW_I = 0 -> we_out = '1' others = '0' -in WRITE STATE-"
+      severity note;
     else
-	 report "ERROR CLK = 1 and MEM_I = 1 and RW_I = 0 -> expected we_out = '1' others = '0' -> GOT oe_out = " & std_logic'image(oe_out) &
+      report "ERROR CLK = 1 and MEM_I = 1 and RW_I = 0 -> expected we_out = '1' others = '0' -> GOT" &
+      " oe_out = " & std_logic'image(oe_out) &
       " , we_out = " & std_logic'image(we_out) &
       " , we_me_out = " & std_logic'image(we_me_out)
       severity error;
-	 end if;
+    end if;
     wait for 5 ns;
 
     clk_in <= '0';
     wait for 10 ns;
-	 
-	 clk_in <= '1';
-    wait for 10 ns;
-	 
-	 clk_in <= '0';
+
+    clk_in <= '1';
     wait for 10 ns;
 
-	 
+    clk_in <= '0';
+    wait for 10 ns;
+
     rw_in <= '1';
     burst_in <= '0';
-	 wait for 5 ns;
+    wait for 5 ns;
     clk_in <= '1';
     wait for 5 ns;
-	 if(oe_out = '1' and we_out = '0' and we_me_out = '0') then
-	   report "OK CLK = 1 and MEM_I = 1 and RW_I = 1 and BURST = 0 -> oe_out = '1' others = '0' -in SINGLE READ STATE- " severity note;
+    if oe_out = '1' and we_out = '0' and we_me_out = '0' then
+      report "OK CLK = 1 and MEM_I = 1 and RW_I = 1 and BURST = 0 ->" &
+      "oe_out = '1' others = '0' -in SINGLE READ STATE- " severity note;
     else
-	 report "ERROR CLK = 1 and MEM_I = 1 and RW_I = 1 and BURST = 0 -> expected oe_out = '1' others = '0' -> GOT oe_out = " & std_logic'image(oe_out) &
+      report "ERROR CLK = 1 and MEM_I = 1 and RW_I = 1 and BURST = 0 ->" &
+      " expected oe_out = '1' others = '0' -> GOT oe_out = " & std_logic'image(oe_out) &
       " , we_out = " & std_logic'image(we_out) &
       " , we_me_out = " & std_logic'image(we_me_out)
       severity error;
-	 end if;
+    end if;
     wait for 5 ns;
 
     clk_in <= '0';
     wait for 10 ns;
-	 
-	 clk_in <= '1';
+
+    clk_in <= '1';
     wait for 10 ns;
-	 
-	 clk_in <= '0';
+
+    clk_in <= '0';
     wait for 10 ns;
 
     burst_in <= '1';
-	 wait for 5 ns;
+    wait for 5 ns;
     clk_in <= '1';
     wait for 5 ns;
-	 if(oe_out = '1' and we_out = '0' and we_me_out = '0') then
-	   report "OK CLK = 1 and MEM_I = 1 and RW_I = 1 and BURST = 1 -> oe_out = '1' others = '0' -in MULTI READ STATE- " severity note;
+    if oe_out = '1' and we_out = '0' and we_me_out = '0' then
+      report "OK CLK = 1 and MEM_I = 1 and RW_I = 1 and BURST = 1 ->"&
+      "oe_out = '1' others = '0' -in MULTI READ STATE- " severity note;
     else
-	 report "ERROR CLK = 1 and MEM_I = 1 and RW_I = 1 and BURST = 1 -> expected oe_out = '1' others = '0' -> GOT oe_out = " & std_logic'image(oe_out) &
+      report "ERROR CLK = 1 and MEM_I = 1 and RW_I = 1 and BURST = 1 ->" &
+      " expected oe_out = '1' others = '0' -> GOT oe_out = " & std_logic'image(oe_out) &
       " , we_out = " & std_logic'image(we_out) &
       " , we_me_out = " & std_logic'image(we_me_out)
       severity error;
-	 end if;
+    end if;
     wait for 5 ns;
 
     clk_in <= '0';
     wait for 10 ns;
 
     clk_in <= '1';
-	 if(oe_out = '1' and we_out = '0' and we_me_out = '0') then
-	   report "OK CLK = 1 and MEM_I = 1 and RW_I = 1 and BURST = 1 -> oe_out = '1' others = '0' -in MULTI READ STATE- " severity note;
+    if oe_out = '1' and we_out = '0' and we_me_out = '0' then
+      report "OK CLK = 1 and MEM_I = 1 and RW_I = 1 and BURST = 1 ->" &
+      " oe_out = '1' others = '0' -in MULTI READ STATE- " severity note;
     else
-	 report "ERROR CLK = 1 and MEM_I = 1 and RW_I = 1 and BURST = 1 -> expected oe_out = '1' others = '0' -> GOT oe_out = " & std_logic'image(oe_out) &
+      report "ERROR CLK = 1 and MEM_I = 1 and RW_I = 1 and BURST = 1 ->" &
+      " expected oe_out = '1' others = '0' -> GOT oe_out = " & std_logic'image(oe_out) &
       " , we_out = " & std_logic'image(we_out) &
       " , we_me_out = " & std_logic'image(we_me_out)
       severity error;
-	 end if;
+    end if;
     wait for 10 ns;
 
     clk_in <= '0';
     wait for 10 ns;
 
     clk_in <= '1';
-	 if(oe_out = '1' and we_out = '0' and we_me_out = '0') then
-	   report "OK CLK = 1 and MEM_I = 1 and RW_I = 1 and BURST = 1 -> oe_out = '1' others = '0' -in MULTI READ STATE- " severity note;
+    if oe_out = '1' and we_out = '0' and we_me_out = '0' then
+      report "OK CLK = 1 and MEM_I = 1 and RW_I = 1 and BURST = 1 ->" &
+      " oe_out = '1' others = '0' -in MULTI READ STATE- " severity note;
     else
-	   report "ERROR CLK = 1 and MEM_I = 1 and RW_I = 1 and BURST = 1 -> expected oe_out = '1' others = '0' -> GOT oe_out = " & std_logic'image(oe_out) &
+      report "ERROR CLK = 1 and MEM_I = 1 and RW_I = 1 and BURST = 1 ->" &
+      " expected oe_out = '1' others = '0' -> GOT oe_out = " & std_logic'image(oe_out) &
       " , we_out = " & std_logic'image(we_out) &
       " , we_me_out = " & std_logic'image(we_me_out)
       severity error;
-	 end if;
+    end if;
     wait for 10 ns;
 
     clk_in <= '0';
     wait for 10 ns;
 
     clk_in <= '1';
-    if(oe_out = '1' and we_out = '0' and we_me_out = '0') then
-	   report "OK CLK = 1 and MEM_I = 1 and RW_I = 1 and BURST = 1 -> oe_out = '1' others = '0' -in MULTI READ STATE- " severity note;
+    if oe_out = '1' and we_out = '0' and we_me_out = '0' then
+      report "OK CLK = 1 and MEM_I = 1 and RW_I = 1 and BURST = 1 ->" &
+      " oe_out = '1' others = '0' -in MULTI READ STATE- " severity note;
     else
-	   report "ERROR CLK = 1 and MEM_I = 1 and RW_I = 1 and BURST = 1 -> expected oe_out = '1' others = '0' -> GOT oe_out = " & std_logic'image(oe_out) &
+      report "ERROR CLK = 1 and MEM_I = 1 and RW_I = 1 and BURST = 1 ->" &
+      " expected oe_out = '1' others = '0' -> GOT oe_out = " & std_logic'image(oe_out) &
       " , we_out = " & std_logic'image(we_out) &
       " , we_me_out = " & std_logic'image(we_me_out)
       severity error;
-	 end if;
+    end if;
     wait for 10 ns;
 
     clk_in <= '0';
