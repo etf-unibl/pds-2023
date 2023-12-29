@@ -72,12 +72,18 @@ architecture arch of manchester_decoder is
     (idle, one, zero);
   signal state_reg : t_state;
   signal next_reg : t_state := idle;
+  signal counter : std_logic := '0';
 begin
   -- sequential part
   process(clk_i)
   begin
-    if rising_edge(clk_i) then
-      state_reg <= next_reg;
+    if falling_edge(clk_i) then
+      if counter = '0' then
+        state_reg <= next_reg;
+        counter <= '1';
+      else
+        counter <= '0';
+      end if;
     end if;
   end process;
   -- next state logic
