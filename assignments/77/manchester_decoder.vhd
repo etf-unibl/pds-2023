@@ -69,9 +69,9 @@ end manchester_decoder;
 --! The last process is for the state register;
 architecture arch of manchester_decoder is
   type t_state is
-    (idle, a1, a0, b1, b0);
+    (idle, one, zero);
   signal state_reg : t_state;
-  signal next_reg : t_state := a0;
+  signal next_reg : t_state := idle;
 begin
   -- sequential part
   process(clk_i)
@@ -85,28 +85,22 @@ begin
   begin
     case state_reg is
       when idle => 
-        if  data_i = '0' then
-          next_reg <= a0;
-        else
-          next_reg <= a1;
-        end if;
-      when a0 =>
-        if data_i = '0' then
-          next_reg <= idle;
-        else
-          next_reg <= b1;
-        end if;
-      when a1 =>
-        if data_i = '0' then
-          next_reg <= b0;
+        if data_i = '1' then
+          next_reg <= one;
         else
           next_reg <= idle;
         end if;
-      when others =>
-        if  data_i = '0' then
-          next_reg <= a0;
+      when one =>
+        if data_i = '0' then
+          next_reg <= zero;
         else
-          next_reg <= a1;
+          next_reg <= idle;
+        end if;
+      when zero =>
+        if  data_i = '1' then
+          next_reg <= one;
+        else
+          next_reg <= idle;
         end if;
     end case;
   end process;
@@ -117,12 +111,10 @@ begin
       when idle =>
         data_o <= '0';
         valid_o <= '0';
-      when a0 =>
-      when a1 =>
-      when b1 =>
+      when one =>
         data_o <= '1';
         valid_o <= '1';
-      when b0 =>
+      when zero =>
         data_o <= '0';
         valid_o <= '1';
     end case;
