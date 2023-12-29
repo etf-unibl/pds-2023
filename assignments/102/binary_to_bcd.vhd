@@ -156,10 +156,10 @@ begin
   end process p4;
 
   --! data path: functional units
-  bcd1_temp <= to_unsigned(to_integer(data_next) mod 10,bcd1_temp'length);
-  bcd2_temp <= to_unsigned((to_integer(data_next)/10) mod 10,bcd2_temp'length);
-  bcd3_temp <= to_unsigned((to_integer(data_next)/100) mod 10,bcd3_temp'length);
-  bcd4_temp <= to_unsigned(to_integer(data_next)/1000,bcd4_temp'length);
+  bcd4_temp <= to_unsigned(to_integer(data_next) mod 10,bcd1_temp'length);
+  bcd3_temp <= to_unsigned((to_integer(data_next)/10) mod 10,bcd2_temp'length);
+  bcd2_temp <= to_unsigned((to_integer(data_next)/100) mod 10,bcd3_temp'length);
+  bcd1_temp <= to_unsigned(to_integer(data_next)/1000,bcd4_temp'length);
 
   --! data path: output
   bcd1_o <= std_logic_vector(bcd1_reg);
