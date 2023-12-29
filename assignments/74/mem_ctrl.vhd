@@ -46,16 +46,16 @@ library ieee;
 --! Use logic elements
 use ieee.std_logic_1164.all;
 
---! controler entity
+--! @details Controler entity
 --! with 5 input ports and
 --! 3 output ports(moore+mealy output logic)
 entity mem_ctrl is
   port(
-    clk_i   : in  std_logic;
-    rst_i   : in  std_logic;
-    mem_i   : in  std_logic;
-    rw_i    : in  std_logic;
-    burst_i : in  std_logic;
+    clk_i   : in  std_logic; --! clock input
+    rst_i   : in  std_logic; --! asynchronous reset input
+    mem_i   : in  std_logic; --! control input for memory access permission
+    rw_i    : in  std_logic; --! control input for read/write mode selection
+    burst_i : in  std_logic; --! control input for burst mode selection
     oe_o    : out std_logic; --! moore output
     we_o    : out std_logic; --! moore output
     we_me_o : out std_logic  --! mealy output
@@ -63,9 +63,14 @@ entity mem_ctrl is
 end mem_ctrl;
 
 --! @brief Architecture definition of the mem_ctrl
+--! @details Realized using FSM metodology with 7 states
+--! idle - initial/neutral state 
+--! write - one state that represents writing functionality
+--! single_read and multi_read - multiple read states depending on burst_i input selection
 architecture arch of mem_ctrl is
   type t_mem_ctrl_states is
-    (state_idle, state_write, state_single_read, state_multi_read1, state_multi_read2, state_multi_read3, state_multi_read4);
+    (state_idle, state_write, state_single_read, state_multi_read1, state_multi_read2,
+    state_multi_read3, state_multi_read4);
   signal state_next : t_mem_ctrl_states;
   signal state_reg  : t_mem_ctrl_states;
 begin
