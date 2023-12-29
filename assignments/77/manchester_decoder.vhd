@@ -81,7 +81,7 @@ begin
     end if;
   end process;
   -- next state logic
-  process(data_i)
+  process(data_i, state_reg)
   begin
     case state_reg is
       when idle => 
