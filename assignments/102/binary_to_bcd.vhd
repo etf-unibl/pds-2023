@@ -84,7 +84,7 @@ begin
   end process p1;
 
   --! control path: next-state
-  p2 : process(state_reg)
+  p2 : process(state_reg, start_i)
   begin
     case state_reg is
       when idle =>
