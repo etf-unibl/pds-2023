@@ -39,23 +39,30 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+--! Detailed description of this 
+--! sequential_multiplier.
 entity sequential_multiplier is
   port (
-     clk_i    : in  std_logic;
-     rst_i    : in  std_logic;
-     start_i  : in  std_logic;
-     a_i      : in  std_logic_vector(7 downto 0);
-     b_i      : in  std_logic_vector(7 downto 0);
-     c_o      : out std_logic_vector(15 downto 0);
-     ready_o  : out std_logic
+     clk_i    : in  std_logic; --! Clock signal
+     rst_i    : in  std_logic; --! Reset signal
+     start_i  : in  std_logic; --! Signal to initiate the multiplication process
+     a_i      : in  std_logic_vector(7 downto 0); --! Input data signal for operand A
+     b_i      : in  std_logic_vector(7 downto 0); --! Input data signal for operand B
+     c_o      : out std_logic_vector(15 downto 0); --! Output signal representing the result 
+     ready_o  : out std_logic --! Output signal indicating readiness for operation
    );
 end sequential_multiplier;
 
 architecture arch of sequential_multiplier is
+  --! Enum for states
   type t_state_type is
        (idle, load, op);
+       
   signal state_reg, state_next : t_state_type;
+  
+  --! Width of data
   constant  c_WIDTH        : integer := 8;
+  
   signal count_next        : std_logic_vector(2 downto 0);
   signal count_reg         : std_logic_vector(2 downto 0);
   signal counter           : std_logic_vector(2 downto 0);
@@ -69,7 +76,12 @@ architecture arch of sequential_multiplier is
   signal max, value_a_1    : std_logic;
 
 begin
-  -- State register
+  --! Architecture Description
+  -- @brief The architecture is designed using a Finite State Machine (FSM) methodology, specifically employing a Moore state machine.
+  -- It utilizes three processes to implement different functionalities: state transition, next-state determination, and register logic.
+  
+  --! State transition process
+  -- @brief Updates the state based on clock and reset inputs.
   process(clk_i, rst_i)
   begin
     if rst_i = '1' then
@@ -79,7 +91,8 @@ begin
     end if;
   end process;
 
-  -- Next-state
+  --! Determine the next state
+  -- @brief State transition logic based on current state and inputs.
   process(state_reg, start_i, max)
   begin
     case state_reg is
@@ -100,10 +113,12 @@ begin
     end case;
   end process;
 
-  -- Output logic
+  --! Output signal ready_o logic
+  -- @brief Indicates whether the module is ready for operation.
   ready_o <= '1' when state_reg = idle else '0';
 
-  -- Data register
+  --! Register process
+  -- @brief Registers data based on clock and reset inputs.
   process(clk_i, rst_i)
   begin
     if rst_i = '1' then
@@ -117,7 +132,8 @@ begin
     end if;
   end process;
 
-  -- Routing multiplexer
+  --! Multiplexer routing logic
+  -- @brief Controls the data routing based on the state and input conditions.
   process(state_reg, count_reg, sum_reg, shift_reg, value_a_1, counter, b_i, shift_help, added_and_shifted, shifted)
   begin
     case state_reg is
@@ -140,16 +156,19 @@ begin
     end case;
   end process;
 
-  -- Functional units
+  --! Functional units logic
+  -- @brief Performs arithmetic and logic operations.
   added_and_shifted <= std_logic_vector(unsigned(sum_reg) + unsigned(shift_reg));
   shifted <= shift_reg(14 downto 0) & '0';
   counter <= std_logic_vector(unsigned(count_reg) + 1 );
 
-  -- Status
+  --! Status signals logic
+  -- @brief Determines and updates status flags.
   max <= '1' when count_reg = "111" else '0';
   value_a_1 <= '1' when a_i(to_integer(unsigned(count_reg))) = '1' else '0';
 
-  -- Output
+  --! Output assignment
+  -- @brief Assigns the output value.
   c_o <= sum_reg;
 
 end arch;
