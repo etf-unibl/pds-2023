@@ -49,59 +49,61 @@ begin
       strobe_i  => strobe_tb,
       p_o      => p1_tb
     );
-  
+
   process
   begin
-
     clk_tb <= '0';
-	 rst_tb <= '0';
+    rst_tb <= '0';
     wait for 10 ns;
     clk_tb <= '1';
-	 rst_tb <= '0';
+    rst_tb <= '0';
     wait for 10 ns;
 
     if i = c_MOORE_TEST_VECTORS'length then
+      report "Simulation finished.";
       wait;
     end if;
 
   end process;
 
-  -- value assgination
   process
   begin
-
     strobe_tb <= c_MOORE_TEST_VECTORS(i).strobe_v;
     p1_comp   <= c_MOORE_TEST_VECTORS(i).p1_v;
-	 wait for 15 ns;
+    wait for 15 ns;
 
     if i < c_MOORE_TEST_VECTORS'length then
       i <= i + 1;
     else
+      report "All test vectors processed.";
       wait;
     end if;
 
   end process;
 
-  -- output compare
   process
     variable error_status : boolean;
   begin
 
-    wait until clk_tb'event;
+    wait until rising_edge(clk_tb);
+
+    -- Add a delay after the clock edge for proper simulation
     wait for 5 ns;
 
+    -- Check if the output matches the expected value
     if p1_tb = p1_comp then
       error_status := false;
+      report "Test vector " & integer'image(i) & " passed.";
     else
       error_status := true;
+      report "Test vector " & integer'image(i) & " failed. Expected: " & std_logic'image(p1_comp) & ", Got: " & std_logic'image(p1_tb);
     end if;
 
+    -- Assert on the error status
     assert not error_status
       report "Test Failed!"
-      severity note;
+      severity error;
 
-    if i = c_MOORE_TEST_VECTORS'length then
-      report "Test Finished.";
-    end if;
   end process;
+
 end arch;
