@@ -35,12 +35,22 @@
 -- ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 -- OTHER DEALINGS IN THE SOFTWARE
 -----------------------------------------------------------------------------
+
+-------------------------------------------------------
+--! @file sequential_multiplier.vhd
+--! @brief Sequential add-and-shift multiplier
+-------------------------------------------------------
+
+--! Use standard library
 library ieee;
+--! Use logic elements
 use ieee.std_logic_1164.all;
+--! Use numeric types and conversions
 use ieee.numeric_std.all;
 
---! Detailed description of this 
+--! Detailed description of this
 --! sequential_multiplier.
+
 entity sequential_multiplier is
   port (
      clk_i    : in  std_logic; --! Clock signal
@@ -48,7 +58,7 @@ entity sequential_multiplier is
      start_i  : in  std_logic; --! Signal to initiate the multiplication process
      a_i      : in  std_logic_vector(7 downto 0); --! Input data signal for operand A
      b_i      : in  std_logic_vector(7 downto 0); --! Input data signal for operand B
-     c_o      : out std_logic_vector(15 downto 0); --! Output signal representing the result 
+     c_o      : out std_logic_vector(15 downto 0); --! Output signal representing the result
      ready_o  : out std_logic --! Output signal indicating readiness for operation
    );
 end sequential_multiplier;
@@ -57,12 +67,9 @@ architecture arch of sequential_multiplier is
   --! Enum for states
   type t_state_type is
        (idle, load, op);
-       
   signal state_reg, state_next : t_state_type;
-  
   --! Width of data
   constant  c_WIDTH        : integer := 8;
-  
   signal count_next        : std_logic_vector(2 downto 0);
   signal count_reg         : std_logic_vector(2 downto 0);
   signal counter           : std_logic_vector(2 downto 0);
@@ -76,12 +83,13 @@ architecture arch of sequential_multiplier is
   signal max, value_a_1    : std_logic;
 
 begin
-  --! Architecture Description
-  -- @brief The architecture is designed using a Finite State Machine (FSM) methodology, specifically employing a Moore state machine.
-  -- It utilizes three processes to implement different functionalities: state transition, next-state determination, and register logic.
-  
-  --! State transition process
-  -- @brief Updates the state based on clock and reset inputs.
+  --! @brief Architecture Description
+  --! The architecture is designed using a Finite State Machine (FSM) methodology,
+  --! specifically employing a Moore state machine.
+  --! It utilizes three processes to implement different functionalities: state transition,
+  --! next-state determination, and register logic.
+
+  --! @brief Updates the state based on clock and reset inputs.
   process(clk_i, rst_i)
   begin
     if rst_i = '1' then
@@ -91,8 +99,7 @@ begin
     end if;
   end process;
 
-  --! Determine the next state
-  -- @brief State transition logic based on current state and inputs.
+  --! @brief State transition logic based on current state and inputs.
   process(state_reg, start_i, max)
   begin
     case state_reg is
@@ -114,11 +121,11 @@ begin
   end process;
 
   --! Output signal ready_o logic
-  -- @brief Indicates whether the module is ready for operation.
+  --! @brief Indicates whether the module is ready for operation.
   ready_o <= '1' when state_reg = idle else '0';
 
   --! Register process
-  -- @brief Registers data based on clock and reset inputs.
+  --! @brief Registers data based on clock and reset inputs.
   process(clk_i, rst_i)
   begin
     if rst_i = '1' then
@@ -133,7 +140,7 @@ begin
   end process;
 
   --! Multiplexer routing logic
-  -- @brief Controls the data routing based on the state and input conditions.
+  --! @brief Controls the data routing based on the state and input conditions.
   process(state_reg, count_reg, sum_reg, shift_reg, value_a_1, counter, b_i, shift_help, added_and_shifted, shifted)
   begin
     case state_reg is
@@ -157,18 +164,18 @@ begin
   end process;
 
   --! Functional units logic
-  -- @brief Performs arithmetic and logic operations.
+  --! @brief Performs arithmetic and logic operations.
   added_and_shifted <= std_logic_vector(unsigned(sum_reg) + unsigned(shift_reg));
   shifted <= shift_reg(14 downto 0) & '0';
   counter <= std_logic_vector(unsigned(count_reg) + 1 );
 
   --! Status signals logic
-  -- @brief Determines and updates status flags.
+  --! @brief Determines and updates status flags.
   max <= '1' when count_reg = "111" else '0';
   value_a_1 <= '1' when a_i(to_integer(unsigned(count_reg))) = '1' else '0';
 
   --! Output assignment
-  -- @brief Assigns the output value.
+  --! @brief Assigns the output value.
   c_o <= sum_reg;
 
 end arch;
