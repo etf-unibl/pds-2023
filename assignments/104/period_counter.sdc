@@ -38,9 +38,9 @@ set_time_format -unit ns -decimal_places 3
 # Create Clock
 #**************************************************************
 
-create_clock -name period_i -period 1000 [get_ports {period_i}]
-create_clock -name clk_i -period 1000 [get_ports {clk_i}]
-create_clock -name clk_virt -period 1000 
+create_clock -name period_i -period 20 [get_ports {period_i}]
+create_clock -name clk_i -period 20 [get_ports {clk_i}]
+create_clock -name clk_virt -period 20
 
 
 #**************************************************************
