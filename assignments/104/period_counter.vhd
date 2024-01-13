@@ -45,7 +45,7 @@ entity period_counter is
   port(
     clk_i    : in  std_logic;          --! Clock input
     rst_i    : in  std_logic;          --! Reset input
-    period_i : in  std_logic;           --! Period input signal
+    signal_i : in  std_logic;           --! Period input signal
     period_o : out unsigned (9 downto 0)  --! Output period count
   );
 end period_counter;
@@ -73,11 +73,11 @@ begin
   --! brief Period counting process.
   --! This process calculates the period by comparing the current and previous counts.
   --! It updates 'period_o' on each rising edge of the 'period_i' input signal.
-  process (period_i, rst_i)
+  process (signal_i, rst_i)
   begin
     if rst_i = '1' then
       prev_count <= (others => '0');
-    elsif rising_edge (period_i) then
+    elsif rising_edge (signal_i) then
       if prev_count < current_count then
         period_o <= current_count - prev_count;
       elsif prev_count > current_count then
