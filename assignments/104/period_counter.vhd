@@ -38,46 +38,54 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+
  --! brief Entity for the period counter.
  --!details This entity represents a simple period counter that counts clock cycles.
 entity period_counter is
-    port (
-        clk_i    : in  std_logic;
-        rst_i    : in  std_logic;
-        signal_i : in  std_logic;
-        period_o : out std_logic_vector(9 downto 0)
-    );
+  port(
+    clk_i    : in  std_logic;          --! Clock input
+    rst_i    : in  std_logic;          --! Reset input
+    period_i : in  std_logic;           --! Period input signal
+    period_o : out unsigned (9 downto 0)  --! Output period count
+  );
 end period_counter;
+
  --! brief Architecture for the period counter.
  --! This architecture implements a period counter that counts clock cycles between rising edges
  --! of the period input signal. It outputs the count in the 'period_o' signal.
 architecture arch of period_counter is
-    --! Counters for current and previous values.
-    signal current_count, prev_count : unsigned(9 downto 0) := (others => '0');
+  --! Counters for current and previous values.
+  signal current_count, prev_count : unsigned (9 downto 0) := (others => '0');
 begin
-    process (clk_i, rst_i)
-    begin
-        if rst_i = '1' then
-            current_count <= (others => '0');
-        elsif rising_edge(clk_i) then
-            current_count <= current_count + 1;
-        end if;
-    end process;
 
-    process (signal_i, rst_i)
-    begin
-        if rst_i = '1' then
-            prev_count  <= (others => '0');
-            period_o    <= (others => '0');
-        elsif rising_edge(signal_i) then
-            if prev_count < current_count then
-                period_o <= std_logic_vector(current_count - prev_count);
-            elsif prev_count > current_count then
-                period_o <= std_logic_vector(to_unsigned(1024, 10) - prev_count + current_count);
-            else
-                period_o <= (others => '0');
-            end if;
-            prev_count <= current_count;
-        end if;
-    end process;
+   --! brief Clock counting process.
+   --! This process increments the 'current_count' on each rising edge of the clock.
+   --! It resets the count to zero on a reset signal.
+  process (clk_i, rst_i)
+  begin
+    if rst_i = '1' then
+      current_count <= (others => '0');
+    elsif rising_edge (clk_i) then
+      current_count <= current_count + 1;
+    end if;
+  end process;
+
+  --! brief Period counting process.
+  --! This process calculates the period by comparing the current and previous counts.
+  --! It updates 'period_o' on each rising edge of the 'period_i' input signal.
+  process (period_i, rst_i)
+  begin
+    if rst_i = '1' then
+      prev_count <= (others => '0');
+    elsif rising_edge (period_i) then
+      if prev_count < current_count then
+        period_o <= current_count - prev_count;
+      elsif prev_count > current_count then
+        period_o <= "1111111111" - prev_count + current_count;
+      else
+        period_o <= (others => '0');
+      end if;
+      prev_count <= current_count;
+    end if;
+  end process;
 end arch;
