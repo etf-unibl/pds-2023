@@ -48,21 +48,18 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 
--- ! Ports of BCD to binary converter
--- ! clk_i - input clock signal
--- ! rst_i - asynchronous reset input
--- ! start_i - used to signal when the conversion can start
--- ! bcd1_i - input bcd digit 1; most significant bcd digit
--- ! bcd2 - input bcd digit 2; least significant bcd digit
+-- ! Entity that describes the inputs and outputs of the BCD to binary converter
+-- ! Converts 2 BCD digits, where one is the most significant and the other the
+-- ! least significant, into a 7 bit binary number.
 entity bcd_to_binary is
   port (
-  clk_i    : in  std_logic;
-  rst_i    : in  std_logic;
-  start_i  : in  std_logic;
-  bcd1_i   : in  std_logic_vector(3 downto 0);
-  bcd2_i   : in  std_logic_vector(3 downto 0);
-  binary_o : out std_logic_vector(6 downto 0);
-  ready_o  : out std_logic
+  clk_i    : in  std_logic;                    -- ! Clock signal input
+  rst_i    : in  std_logic;                    -- ! Asynchronous reset input
+  start_i  : in  std_logic;                    -- ! Used to signal when the conversion can start
+  bcd1_i   : in  std_logic_vector(3 downto 0); -- ! Input bcd digit 1; most significant bcd digit
+  bcd2_i   : in  std_logic_vector(3 downto 0); -- ! Input bcd digit 2; least significant bcd digit
+  binary_o : out std_logic_vector(6 downto 0); -- ! Binary output
+  ready_o  : out std_logic                     -- ! Output that signalized readiness of binary output signal 
 );
 end bcd_to_binary;
 
