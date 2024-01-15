@@ -81,7 +81,7 @@ begin
       if prev_count < current_count then
         period_o <= current_count - prev_count;
       elsif prev_count > current_count then
-        period_o <= "1111111111" - prev_count + current_count;
+        period_o <= to_unsigned(1024, 10) - prev_count + current_count;
       else
         period_o <= (others => '0');
       end if;
