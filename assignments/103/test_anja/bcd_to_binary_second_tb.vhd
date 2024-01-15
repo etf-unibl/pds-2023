@@ -46,11 +46,11 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 --! @brief empty entity definition
-entity bcd_to_binary_tb is
-end bcd_to_binary_tb;
+entity bcd_to_binary_second_tb is
+end bcd_to_binary_second_tb;
 
 --! @brief Testing functionality of bcd_to_binary design entity
-architecture arch of bcd_to_binary_tb is
+architecture arch of bcd_to_binary_second_tb is
   signal clk_in     : std_logic := '0';
   signal rst_in     : std_logic := '0';
   signal start_in   : std_logic := '1';
