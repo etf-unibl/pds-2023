@@ -59,7 +59,7 @@ entity bcd_to_binary is
   bcd1_i   : in  std_logic_vector(3 downto 0); -- ! Input bcd digit 1; most significant bcd digit
   bcd2_i   : in  std_logic_vector(3 downto 0); -- ! Input bcd digit 2; least significant bcd digit
   binary_o : out std_logic_vector(6 downto 0); -- ! Binary output
-  ready_o  : out std_logic                     -- ! Output that signalized readiness of binary output signal 
+  ready_o  : out std_logic                     -- ! Output that signalized readiness of binary output signal
 );
 end bcd_to_binary;
 
