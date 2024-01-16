@@ -65,6 +65,7 @@ begin
   begin
     if rst_i = '1' then
       current_count <= (others => '0');
+      prev_count <= (others => '0');
     elsif rising_edge (clk_i) then
       current_count <= current_count + 1;
     end if;
