@@ -4,7 +4,7 @@ var searchData=
   ['t_5fmem_5fctrl_5fstates_1',['t_mem_ctrl_states',['../classmem__ctrl_1_1arch.html#ac7df51a1d07378e50b8d1d27905dd060',1,'mem_ctrl::arch']]],
   ['t_5fsequence_5fstates_2',['t_sequence_states',['../classpreamble__detector_1_1arch.html#a7f03eb57c28859a1ac2db89919ba4796',1,'preamble_detector::arch']]],
   ['t_5fstate_3',['t_state',['../classarbiter_1_1arch.html#adad0f6d82719da602a57312c1b4ef6a6',1,'arbiter::arch']]],
-  ['t_5fstate_5ftype_4',['t_state_type',['../classsequential__divider_1_1arch.html#a1036763f1aa79fcbe595f96335ba350c',1,'sequential_divider::arch']]],
+  ['t_5fstate_5ftype_4',['t_state_type',['../classsequential__multiplier_1_1arch.html#a45133b64009ec9d34d6d0f3b5c87134d',1,'sequential_multiplier.arch.t_state_type'],['../classsequential__divider_1_1arch.html#a1036763f1aa79fcbe595f96335ba350c',1,'sequential_divider.arch.t_state_type']]],
   ['temp_5',['temp',['../classbcd__adder_1_1arch.html#a534eb8fd78932519d9594e1d2c847ef7',1,'bcd_adder::arch']]],
   ['temp1_6',['temp1',['../classdual__mode__shifter_1_1arch.html#aa5d01444efca64531688ddf06edae9ee',1,'dual_mode_shifter.arch.temp1'],['../classone__digit_1_1arch.html#a25dbb188458a8489c062f5ed05e392cc',1,'one_digit.arch.temp1']]],
   ['temp2_7',['temp2',['../classdual__mode__shifter_1_1arch.html#a4668218fa1032de8deb6cded31989554',1,'dual_mode_shifter::arch']]],
