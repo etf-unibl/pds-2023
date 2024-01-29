@@ -10,7 +10,8 @@ var searchData=
   ['data_5fout_7',['data_out',['../classtest.html#ac4069652257ee73e30b9973ce1dc304f',1,'test']]],
   ['data_5fout_5freg_8',['data_out_reg',['../classbcd__to__binary_1_1arch.html#a377757b7d6a21968689606288795c59c',1,'bcd_to_binary::arch']]],
   ['data_5fout_5freg_5fnext_9',['data_out_reg_next',['../classbcd__to__binary_1_1arch.html#a069865bcd8182862fc3d50a2d3474769',1,'bcd_to_binary::arch']]],
-  ['diff_10',['Diff',['../classone__bit__full__subtractor.html#ab92e9754908f2387604254e8533da08f',1,'one_bit_full_subtractor']]],
-  ['diff_11',['diff',['../classsimple__alu_1_1beh__arch.html#a8efa4cafdfe6694259428739dc2988c3',1,'simple_alu::beh_arch']]],
-  ['distance_5fo_12',['DISTANCE_o',['../classgray__distance__unit.html#a37d29e5a6f5a263dbbb57414d70bfe43',1,'gray_distance_unit']]]
+  ['diff_10',['diff',['../classsimple__alu_1_1beh__arch.html#a8efa4cafdfe6694259428739dc2988c3',1,'simple_alu::beh_arch']]],
+  ['diff_11',['Diff',['../classone__bit__full__subtractor.html#ab92e9754908f2387604254e8533da08f',1,'one_bit_full_subtractor']]],
+  ['distance_5fo_12',['DISTANCE_o',['../classgray__distance__unit.html#a37d29e5a6f5a263dbbb57414d70bfe43',1,'gray_distance_unit']]],
+  ['done_13',['done',['../classfibonacci_1_1arch.html#a94bdcdf98c3ce287bb8eae8c5aa5a82a',1,'fibonacci::arch']]]
 ];

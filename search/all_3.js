@@ -12,13 +12,14 @@ var searchData=
   ['data_5fout_5freg_5fnext_9',['data_out_reg_next',['../classbcd__to__binary_1_1arch.html#a069865bcd8182862fc3d50a2d3474769',1,'bcd_to_binary::arch']]],
   ['decoder_5f2_5f4_10',['decoder_2_4',['../classdecoder__2__4.html',1,'']]],
   ['decoder_5f2_5f4_2evhd_11',['decoder_2_4.vhd',['../decoder__2__4_8vhd.html',1,'']]],
-  ['diff_12',['Diff',['../classone__bit__full__subtractor.html#ab92e9754908f2387604254e8533da08f',1,'one_bit_full_subtractor']]],
-  ['diff_13',['diff',['../classsimple__alu_1_1beh__arch.html#a8efa4cafdfe6694259428739dc2988c3',1,'simple_alu::beh_arch']]],
+  ['diff_12',['diff',['../classsimple__alu_1_1beh__arch.html#a8efa4cafdfe6694259428739dc2988c3',1,'simple_alu::beh_arch']]],
+  ['diff_13',['Diff',['../classone__bit__full__subtractor.html#ab92e9754908f2387604254e8533da08f',1,'one_bit_full_subtractor']]],
   ['distance_5fo_14',['DISTANCE_o',['../classgray__distance__unit.html#a37d29e5a6f5a263dbbb57414d70bfe43',1,'gray_distance_unit']]],
-  ['dual_5fmode_5fcomparator_15',['dual_mode_comparator',['../classdual__mode__comparator.html',1,'']]],
-  ['dual_5fmode_5fcomparator_2evhd_16',['dual_mode_comparator.vhd',['../dual__mode__comparator_8vhd.html',1,'']]],
-  ['dual_5fmode_5fshifter_17',['dual_mode_shifter',['../classdual__mode__shifter.html',1,'']]],
-  ['dual_5fmode_5fshifter_2evhd_18',['dual_mode_shifter.vhd',['../dual__mode__shifter_8vhd.html',1,'']]],
-  ['dual_5fmode_5fshifter_5funoptimized_19',['dual_mode_shifter_unoptimized',['../classdual__mode__shifter__unoptimized.html',1,'']]],
-  ['dual_5fmode_5fshifter_5funoptimized_2evhd_20',['dual_mode_shifter_unoptimized.vhd',['../dual__mode__shifter__unoptimized_8vhd.html',1,'']]]
+  ['done_15',['done',['../classfibonacci_1_1arch.html#a94bdcdf98c3ce287bb8eae8c5aa5a82a',1,'fibonacci::arch']]],
+  ['dual_5fmode_5fcomparator_16',['dual_mode_comparator',['../classdual__mode__comparator.html',1,'']]],
+  ['dual_5fmode_5fcomparator_2evhd_17',['dual_mode_comparator.vhd',['../dual__mode__comparator_8vhd.html',1,'']]],
+  ['dual_5fmode_5fshifter_18',['dual_mode_shifter',['../classdual__mode__shifter.html',1,'']]],
+  ['dual_5fmode_5fshifter_2evhd_19',['dual_mode_shifter.vhd',['../dual__mode__shifter_8vhd.html',1,'']]],
+  ['dual_5fmode_5fshifter_5funoptimized_20',['dual_mode_shifter_unoptimized',['../classdual__mode__shifter__unoptimized.html',1,'']]],
+  ['dual_5fmode_5fshifter_5funoptimized_2evhd_21',['dual_mode_shifter_unoptimized.vhd',['../dual__mode__shifter__unoptimized_8vhd.html',1,'']]]
 ];
